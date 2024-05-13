@@ -53,6 +53,9 @@
 			children = (
 				915E4B692BF11B7800A68B75 /* MyWorldApp.swift */,
 				915E4B6B2BF11B7800A68B75 /* ContentView.swift */,
+				915E4B782BF127D000A68B75 /* Models */,
+				915E4B772BF127C600A68B75 /* Views */,
+				915E4B792BF127DF00A68B75 /* ViewModels */,
 				915E4B6D2BF11B7900A68B75 /* Assets.xcassets */,
 				915E4B6F2BF11B7900A68B75 /* Preview Content */,
 			);
@@ -65,6 +68,27 @@
 				915E4B702BF11B7900A68B75 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		915E4B772BF127C600A68B75 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		915E4B782BF127D000A68B75 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		915E4B792BF127DF00A68B75 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -275,6 +299,7 @@
 				DEVELOPMENT_TEAM = MBFB47H6TQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "The app needs your location to work";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -304,6 +329,7 @@
 				DEVELOPMENT_TEAM = MBFB47H6TQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "The app needs your location to work";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
