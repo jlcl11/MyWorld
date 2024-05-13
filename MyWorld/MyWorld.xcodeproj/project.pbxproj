@@ -12,6 +12,7 @@
 		915E4B6C2BF11B7800A68B75 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915E4B6B2BF11B7800A68B75 /* ContentView.swift */; };
 		915E4B6E2BF11B7900A68B75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 915E4B6D2BF11B7900A68B75 /* Assets.xcassets */; };
 		915E4B712BF11B7900A68B75 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 915E4B702BF11B7900A68B75 /* Preview Assets.xcassets */; };
+		916BD5EE2BF2A3FF0036F83B /* UserAnnotationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916BD5ED2BF2A3FF0036F83B /* UserAnnotationComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		915E4B6B2BF11B7800A68B75 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		915E4B6D2BF11B7900A68B75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		915E4B702BF11B7900A68B75 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		916BD5ED2BF2A3FF0036F83B /* UserAnnotationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAnnotationComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 		915E4B772BF127C600A68B75 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				916BD5ED2BF2A3FF0036F83B /* UserAnnotationComponent.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				915E4B6C2BF11B7800A68B75 /* ContentView.swift in Sources */,
+				916BD5EE2BF2A3FF0036F83B /* UserAnnotationComponent.swift in Sources */,
 				915E4B6A2BF11B7800A68B75 /* MyWorldApp.swift in Sources */,
 				914A19732BF272980045900D /* MapViewModel.swift in Sources */,
 			);

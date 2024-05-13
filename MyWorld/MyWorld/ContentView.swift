@@ -12,12 +12,22 @@ struct ContentView: View {
     @State private var mapViewModel = MapViewModel()
     
     var body: some View {
-        Map(position: $mapViewModel.cameraPosition)
-            .onAppear{
-                mapViewModel.checkIfLocationServicesIsEnabled()
+        Map(position: $mapViewModel.cameraPosition) {
+            UserAnnotation {
+                UserAnnotationComponent()
             }
+        }
+        .mapControls {
+            MapCompass()
+            MapPitchToggle()
+            MapUserLocationButton()
+        }
+        .onAppear {
+            mapViewModel.checkIfLocationServicesIsEnabled()
+        }
     }
 }
+
 
 #Preview {
     ContentView()
