@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		914A19732BF272980045900D /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914A19722BF272980045900D /* MapViewModel.swift */; };
 		915E4B6A2BF11B7800A68B75 /* MyWorldApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915E4B692BF11B7800A68B75 /* MyWorldApp.swift */; };
 		915E4B6C2BF11B7800A68B75 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915E4B6B2BF11B7800A68B75 /* ContentView.swift */; };
 		915E4B6E2BF11B7900A68B75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 915E4B6D2BF11B7900A68B75 /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		914A19722BF272980045900D /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		915E4B662BF11B7800A68B75 /* MyWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		915E4B692BF11B7800A68B75 /* MyWorldApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWorldApp.swift; sourceTree = "<group>"; };
 		915E4B6B2BF11B7800A68B75 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 		915E4B792BF127DF00A68B75 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				914A19722BF272980045900D /* MapViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -163,6 +166,7 @@
 			files = (
 				915E4B6C2BF11B7800A68B75 /* ContentView.swift in Sources */,
 				915E4B6A2BF11B7800A68B75 /* MyWorldApp.swift in Sources */,
+				914A19732BF272980045900D /* MapViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
