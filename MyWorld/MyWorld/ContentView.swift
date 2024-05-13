@@ -6,16 +6,16 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct ContentView: View {
+    @State private var mapViewModel = MapViewModel()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        Map(position: $mapViewModel.cameraPosition)
+            .onAppear{
+                mapViewModel.checkIfLocationServicesIsEnabled()
+            }
     }
 }
 
