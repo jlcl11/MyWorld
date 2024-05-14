@@ -10,6 +10,14 @@ import MapKit
 
 struct ContentView: View {
     @State private var mapViewModel = MapViewModel()
+    @State private var showModalSheet: Bool
+    @State var searchText: String
+    
+    init(mapViewModel: MapViewModel = MapViewModel(), showModalSheet: Bool = true, searchText: String = "") {
+        self.mapViewModel = mapViewModel
+        self.showModalSheet = showModalSheet
+        self.searchText = searchText
+    }
     
     var body: some View {
         Map(position: $mapViewModel.cameraPosition) {
@@ -22,6 +30,13 @@ struct ContentView: View {
             MapPitchToggle()
             MapUserLocationButton()
         }
+        .sheet(isPresented: $showModalSheet, content: {
+            DestinationsSheet(searchText: $searchText)
+                .presentationDetents([.height(120), .medium, .height(720)])
+                .presentationBackgroundInteraction(.enabled(upThrough: .height(120)))
+                .presentationCornerRadius(40)
+                .interactiveDismissDisabled(true)
+        })
         .onAppear {
             mapViewModel.checkIfLocationServicesIsEnabled()
         }
