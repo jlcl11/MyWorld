@@ -9,20 +9,19 @@ import SwiftUI
 import MapKit
 
 struct ContentView: View {
-    @State private var mapViewModel = MapViewModel()
-    @State private var showModalSheet: Bool
-    @State var searchText: String
-    
-    init(mapViewModel: MapViewModel = MapViewModel(), showModalSheet: Bool = true, searchText: String = "") {
-        self.mapViewModel = mapViewModel
-        self.showModalSheet = showModalSheet
-        self.searchText = searchText
-    }
-    
+    @StateObject private var mapViewModel = MapViewModel()
+    @State private var showModalSheet: Bool = true
+    @State var searchText: String = ""
+
     var body: some View {
         Map(position: $mapViewModel.cameraPosition) {
             UserAnnotation {
                 UserAnnotationComponent()
+            }
+
+            ForEach(mapViewModel.results, id: \.self) { item in
+                let placemark = item.placemark
+                Marker(placemark.name ?? "", coordinate: placemark.coordinate)
             }
         }
         .mapControls {
@@ -36,6 +35,9 @@ struct ContentView: View {
                 .presentationBackgroundInteraction(.enabled(upThrough: .height(120)))
                 .presentationCornerRadius(40)
                 .interactiveDismissDisabled(true)
+                .onSubmit(of: .text) {
+                    Task { await mapViewModel.searchPlaces(searchText: searchText) }
+                }
         })
         .onAppear {
             mapViewModel.checkIfLocationServicesIsEnabled()
