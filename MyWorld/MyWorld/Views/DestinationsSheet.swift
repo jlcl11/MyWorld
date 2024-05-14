@@ -67,7 +67,7 @@ struct DestinationsSheet: View {
                 Section(header: HStack {
                     Text("Recent").font(.footnote).foregroundStyle(.gray).bold()
                     Spacer()
-                }.padding(.bottom, 5)) {
+                }.padding(.vertical, 5)) {
                     ForEach(recentHistoryItems, id: \.name) { item in
                         RecentLocationItem(name: item.name, adress: item.adress)
                         Divider()
