@@ -10,7 +10,7 @@ import _MapKit_SwiftUI
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     @Published var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
-    @Published private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.331516, longitude: -121.891054), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+    @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.331516, longitude: -121.891054), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
     
     var locationManager: CLLocationManager?
     

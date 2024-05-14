@@ -10,6 +10,13 @@ import SwiftUI
 struct UserAnnotationComponent: View {
     var body: some View {
         ZStack {
+            
+            EquilateralTriangle()
+                     .fill(LinearGradient(gradient: Gradient(colors: [Color.indigo, Color.clear]), startPoint: .bottom, endPoint: .top))
+                     .offset(y: 5)
+                     .frame(width: 60, height: 60)
+                     .rotationEffect(.degrees(180))
+            	
             Circle()
                 .fill(LinearGradient(gradient: Gradient(colors: [Color.white, Color.indigo]), startPoint: .topLeading, endPoint: .bottomTrailing))
                 .frame(width: 30, height: 30)
