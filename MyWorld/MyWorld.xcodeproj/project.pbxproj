@@ -19,6 +19,7 @@
 		9172A0E92BF36510008039A3 /* LikedMealItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9172A0E82BF36510008039A3 /* LikedMealItem.swift */; };
 		9172A0EB2BF3714B008039A3 /* FindNearbyListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9172A0EA2BF3714B008039A3 /* FindNearbyListItem.swift */; };
 		9172A0ED2BF38F97008039A3 /* RecentLocationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9172A0EC2BF38F97008039A3 /* RecentLocationItem.swift */; };
+		9176CCD12BF4DD7900ABACA8 /* WavingBars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9176CCD02BF4DD7900ABACA8 /* WavingBars.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		9172A0E82BF36510008039A3 /* LikedMealItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedMealItem.swift; sourceTree = "<group>"; };
 		9172A0EA2BF3714B008039A3 /* FindNearbyListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindNearbyListItem.swift; sourceTree = "<group>"; };
 		9172A0EC2BF38F97008039A3 /* RecentLocationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentLocationItem.swift; sourceTree = "<group>"; };
+		9176CCD02BF4DD7900ABACA8 /* WavingBars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavingBars.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 				9172A0E82BF36510008039A3 /* LikedMealItem.swift */,
 				9172A0EA2BF3714B008039A3 /* FindNearbyListItem.swift */,
 				9172A0EC2BF38F97008039A3 /* RecentLocationItem.swift */,
+				9176CCD02BF4DD7900ABACA8 /* WavingBars.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -198,6 +201,7 @@
 				9172A0EB2BF3714B008039A3 /* FindNearbyListItem.swift in Sources */,
 				916BD5EE2BF2A3FF0036F83B /* UserAnnotationComponent.swift in Sources */,
 				9172A0ED2BF38F97008039A3 /* RecentLocationItem.swift in Sources */,
+				9176CCD12BF4DD7900ABACA8 /* WavingBars.swift in Sources */,
 				9172A0E52BF35420008039A3 /* DestinationsSheet.swift in Sources */,
 				9172A0E32BF34B54008039A3 /* EquilateralTriangle.swift in Sources */,
 				9172A0E92BF36510008039A3 /* LikedMealItem.swift in Sources */,
