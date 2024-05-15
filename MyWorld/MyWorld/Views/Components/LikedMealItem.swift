@@ -8,38 +8,35 @@
 import SwiftUI
 
 struct LikedMealItem: View {
+    var iconName: String
     var locationName: String
-    
+    var subtitle: String
+
     var body: some View {
         VStack {
-            ZStack {
-                Image(systemName: "bookmark.fill")
-                    .font(.system(size: 20))
-                    .foregroundStyle(.gray)
-                    .padding()
-                
-                Image(systemName: "bookmark.fill")
-                    .font(.system(size: 20))
-                    .foregroundStyle(.gray.opacity(0.6))
-                    .padding()
-                    .offset(x: 3, y: 2)
-            }
-            
+            Image(systemName: iconName)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 24, height: 24)
+                .padding(.vertical, 4)
             Text(locationName)
                 .font(.headline)
-                .bold()
-                .offset(y: -20)
-            
-            Text("Go there")
+            Text(subtitle)
                 .font(.subheadline)
-                .offset(y: -20)
+                .foregroundColor(.secondary)
         }
         .frame(width: 80, height: 80)
-         
-        .border(Color.gray, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+        .cornerRadius(10)
+        .shadow(radius: 2)
+        .padding(4)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.secondary, lineWidth: 1)
+        )
     }
 }
 
+
 #Preview {
-    LikedMealItem(locationName: "Casita")
+    LikedMealItem(iconName: "house.fill", locationName: "Home", subtitle: "Place to sleep")
 }

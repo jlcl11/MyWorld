@@ -18,9 +18,9 @@ struct DestinationsSheet: View {
         ]
 
         var recentHistoryItems: [RecentLocationItem] = [
-            RecentLocationItem(name: "Casa", adress: "Mojo Dojo Casa House, BarbieLand"),
-            RecentLocationItem(name: "Casa", adress: "Mojo Dojo Casa House, BarbieLand"),
-            RecentLocationItem(name: "Casa", adress: "Mojo Dojo Casa House, BarbieLand")
+            RecentLocationItem(name: "Kendom", adress: "Mojo Dojo Casa House, BarbieLand"),
+            RecentLocationItem(name: "Kendom", adress: "Mojo Dojo Casa House, BarbieLand"),
+            RecentLocationItem(name: "Kendom", adress: "Mojo Dojo Casa House, BarbieLand")
         ]
 
         ScrollView {
@@ -39,7 +39,7 @@ struct DestinationsSheet: View {
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(1..<100) { n in
-                            LikedMealItem(locationName: "\(n)")
+                            LikedMealItem(iconName: "heart.fill", locationName: "\(n)", subtitle: "Go there")
                         }
                     }
                 }
