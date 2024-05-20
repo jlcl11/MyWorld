@@ -37,15 +37,16 @@ struct ContentView: View {
                 .interactiveDismissDisabled(true)
                 .onSubmit(of: .text) {
                     Task { await mapViewModel.searchPlaces(searchText: searchText) }
-                }
+                }.onChange(of: searchText, {
+                    
+                    Task { await mapViewModel.searchPlaces(searchText: searchText) }
+                })
         })
         .onAppear {
             mapViewModel.checkIfLocationServicesIsEnabled()
         }
     }
 }
-
-
 
 #Preview {
     ContentView()

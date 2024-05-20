@@ -30,8 +30,6 @@ struct RecentLocationItem: View {
                         .font(.subheadline)
                 }
                 Spacer()
-            }.onTapGesture {
-                print("Holiwis")
             }
         }
 
