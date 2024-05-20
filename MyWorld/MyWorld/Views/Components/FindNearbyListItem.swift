@@ -27,10 +27,7 @@ struct FindNearbyListItem: View {
             Text(locationName)
                 .foregroundStyle(.primary)
             Spacer()
-        }
-        .onTapGesture {
-            print("Holis")
-        }
+        } 
     }
 }
 
