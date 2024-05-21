@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9134A66C2BFBCE8E00929317 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9134A66B2BFBCE8E00929317 /* LocationView.swift */; };
 		914A19732BF272980045900D /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914A19722BF272980045900D /* MapViewModel.swift */; };
 		915E4B6A2BF11B7800A68B75 /* MyWorldApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915E4B692BF11B7800A68B75 /* MyWorldApp.swift */; };
 		915E4B6C2BF11B7800A68B75 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915E4B6B2BF11B7800A68B75 /* ContentView.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9134A66B2BFBCE8E00929317 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		914A19722BF272980045900D /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		915E4B662BF11B7800A68B75 /* MyWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		915E4B692BF11B7800A68B75 /* MyWorldApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWorldApp.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			children = (
 				9172A0E12BF34B40008039A3 /* Components */,
 				9172A0E42BF35420008039A3 /* DestinationsSheet.swift */,
+				9134A66B2BFBCE8E00929317 /* LocationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9172A0E72BF356E0008039A3 /* CustomTextField.swift in Sources */,
+				9134A66C2BFBCE8E00929317 /* LocationView.swift in Sources */,
 				915E4B6C2BF11B7800A68B75 /* ContentView.swift in Sources */,
 				9172A0EB2BF3714B008039A3 /* FindNearbyListItem.swift in Sources */,
 				916BD5EE2BF2A3FF0036F83B /* UserAnnotationComponent.swift in Sources */,

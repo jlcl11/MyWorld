@@ -11,10 +11,12 @@ import MapKit
 struct ContentView: View {
     @StateObject private var mapViewModel = MapViewModel()
     @State private var showModalSheet: Bool = true
+    @State private var showLocationSheet: Bool = false
+    @State private var mapSelection: MKMapItem?
     @State var searchText: String = ""
 
     var body: some View {
-        Map(position: $mapViewModel.cameraPosition) {
+        Map(position: $mapViewModel.cameraPosition, selection: $mapSelection) {
             UserAnnotation {
                 UserAnnotationComponent()
             }
@@ -30,17 +32,35 @@ struct ContentView: View {
             MapUserLocationButton()
         }
         .sheet(isPresented: $showModalSheet, content: {
-            DestinationsSheet(searchText: $searchText)
-                .presentationDetents([.height(120), .medium, .height(720)])
-                .presentationBackgroundInteraction(.enabled(upThrough: .height(120)))
-                .presentationCornerRadius(40)
-                .interactiveDismissDisabled(true)
-                .onSubmit(of: .text) {
-                    Task { await mapViewModel.searchPlaces(searchText: searchText) }
-                }.onChange(of: searchText, {
-                    
-                    Task { await mapViewModel.searchPlaces(searchText: searchText) }
-                })
+            
+            if showLocationSheet {
+                LocationView(mapSelection: $mapSelection, show: $showLocationSheet)
+                    .presentationDetents([ .height(340)])
+                    .presentationBackgroundInteraction(.enabled(upThrough: .height(340)))
+                    .presentationCornerRadius(40)
+                    .interactiveDismissDisabled(true)
+                    .onChange(of: mapSelection, { oldValue, newValue in
+                        showLocationSheet = newValue != nil
+                    })
+                    .padding()
+                
+            } else {
+                DestinationsSheet(searchText: $searchText)
+                    .presentationDetents([.height(120), .medium, .height(720)])
+                    .presentationBackgroundInteraction(.enabled(upThrough: .height(120)))
+                    .presentationCornerRadius(40)
+                    .interactiveDismissDisabled(true)
+                    .onSubmit(of: .text) {
+                        Task { await mapViewModel.searchPlaces(searchText: searchText) }
+                    }.onChange(of: searchText, {
+                        
+                        Task { await mapViewModel.searchPlaces(searchText: searchText) }
+                    })
+            }
+            
+        })
+        .onChange(of: mapSelection, {
+            showLocationSheet = true
         })
         .onAppear {
             mapViewModel.checkIfLocationServicesIsEnabled()
