@@ -37,12 +37,12 @@ struct ContentView: View {
                 LocationView(mapSelection: $mapSelection, show: $showLocationSheet)
                     .presentationDetents([ .height(340)])
                     .presentationBackgroundInteraction(.enabled(upThrough: .height(340)))
+                    .presentationDragIndicator(.visible)
                     .presentationCornerRadius(40)
                     .interactiveDismissDisabled(true)
                     .onChange(of: mapSelection, { oldValue, newValue in
                         showLocationSheet = newValue != nil
                     })
-                    .padding()
                 
             } else {
                 DestinationsSheet(searchText: $searchText)

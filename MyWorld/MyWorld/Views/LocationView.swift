@@ -41,15 +41,65 @@ struct LocationView: View {
                 }
                 
             }
+            .padding(.top)
+            .padding(.horizontal)
             
             if let scene = lookAroundScene {
                 LookAroundPreview(initialScene: scene)
                     .frame(height: 200)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
-                    .padding()
+                    .padding(.horizontal)
+                    .padding(.bottom)
             } else {
                 ContentUnavailableView("No preview available", image: "eye.slash")
             }
+            
+            HStack(spacing: 12){
+                Button {
+                    if let mapSelection {
+                        mapSelection.openInMaps()
+                    }
+                } label: {
+                    Image(systemName: "map")
+                        .frame(width: 75, height: 38)
+                        .background(.green)
+                        .foregroundStyle(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                }
+                
+                Button {
+                    
+                } label: {
+                    
+                    Image(systemName: "globe")
+                        .frame(width: 75, height: 38)
+                        .background(.blue)
+                        .foregroundStyle(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                 
+                }
+                
+                Button {
+                  
+                } label: {
+                    Image(systemName: "phone.badge.waveform")
+                        .frame(width: 75, height: 38)
+                        .background(.gray)
+                        .foregroundStyle(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                }
+                
+                Button {
+                    
+                } label: {
+                    Image(systemName: "arrowshape.up")
+                        .frame(width: 75, height: 38)
+                        .background(.yellow)
+                        .foregroundStyle(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                }
+            }
+
         }
         .onAppear {
             fetchLookAroundScene()
