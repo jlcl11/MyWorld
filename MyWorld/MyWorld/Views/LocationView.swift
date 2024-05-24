@@ -13,6 +13,7 @@ struct LocationView: View {
     @Binding var show: Bool
     @State private var lookAroundScene: MKLookAroundScene?
     @State private var showWebView = false
+    @EnvironmentObject var mapViewModel: MapViewModel
 
     var body: some View {
         VStack {
@@ -104,8 +105,13 @@ struct LocationView: View {
                 }
                 
                 Button {
-                    withAnimation {
-                   
+                    Task {
+                        if let destination = mapSelection {
+                            await mapViewModel.fetchRoute(to: destination)
+                          /*  withAnimation {
+                                show = false
+                            }*/
+                        }
                     }
                 } label: {
                     Image(systemName: "arrowshape.up")
@@ -133,8 +139,4 @@ struct LocationView: View {
             }
         }
     }
-}
-
-#Preview {
-    LocationView(mapSelection: .constant(nil), show: .constant(true))
 }

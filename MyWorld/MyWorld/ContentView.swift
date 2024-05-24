@@ -16,28 +16,32 @@ struct ContentView: View {
     @State var searchText: String = ""
 
     var body: some View {
-        Map(position: $mapViewModel.cameraPosition, selection: $mapSelection) {
-            UserAnnotation {
-                UserAnnotationComponent()
-            }
+        ZStack {
+            Map(position: $mapViewModel.cameraPosition, selection: $mapSelection) {
+                UserAnnotation {
+                    UserAnnotationComponent()
+                }
 
-            ForEach(mapViewModel.results, id: \.self) { item in
-                let placemark = item.placemark
-                Marker(placemark.name ?? "", coordinate: placemark.coordinate)
+                ForEach(mapViewModel.results, id: \.self) { item in
+                    let placemark = item.placemark
+                    Marker(placemark.name ?? "", coordinate: placemark.coordinate)
+                }
+
+                if let route = mapViewModel.route {
+                    MapPolyline(route.polyline)
+                        .stroke(.indigo, lineWidth: 5)
+                        .mapOverlayLevel(level: .aboveRoads)
+                }
             }
-            
-          
-            
-        }
-        .mapControls {
-            MapCompass()
-            MapPitchToggle()
-            MapUserLocationButton()
-        }
-        .sheet(isPresented: $showModalSheet, content: {
-          
+            .mapControls {
+                MapCompass()
+                MapPitchToggle()
+                MapUserLocationButton()
+            }
+            .sheet(isPresented: $showModalSheet, content: {
                 if showLocationSheet {
                     LocationView(mapSelection: $mapSelection, show: $showLocationSheet)
+                        .environmentObject(mapViewModel)
                         .presentationDetents([ .height(340)])
                         .presentationBackgroundInteraction(.enabled(upThrough: .height(340)))
                         .presentationDragIndicator(.visible)
@@ -46,7 +50,6 @@ struct ContentView: View {
                         .onChange(of: mapSelection, { oldValue, newValue in
                             showLocationSheet = newValue != nil
                         })
-                    
                 } else {
                     DestinationsSheet(searchText: $searchText)
                         .presentationDetents([.height(120), .medium, .height(720)])
@@ -55,22 +58,44 @@ struct ContentView: View {
                         .interactiveDismissDisabled(true)
                         .onSubmit(of: .text) {
                             Task { await mapViewModel.searchPlaces(searchText: searchText) }
-                        }.onChange(of: searchText, {
-                            
+                        }
+                        .onChange(of: searchText, {
                             Task { await mapViewModel.searchPlaces(searchText: searchText) }
                         })
-                
+                }
+            })
+            .onChange(of: mapSelection, {
+                showLocationSheet = true
+            })
+            .onAppear {
+                mapViewModel.checkIfLocationServicesIsEnabled()
             }
-  
-        })
-        .onChange(of: mapSelection, {
-            showLocationSheet = true
-        })
-        .onAppear {
-            mapViewModel.checkIfLocationServicesIsEnabled()
+            
+            if mapViewModel.routeDisplaying {
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            withAnimation {
+                                mapViewModel.cancelRoute()
+                                showModalSheet = true
+                            }
+                        }) {
+                            Image(systemName: "xmark.circle.fill")
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Color.red)
+                                .clipShape(Circle())
+                        }
+                        .padding()
+                    }
+                }
+            }
         }
     }
 }
+
 
 
 #Preview {
