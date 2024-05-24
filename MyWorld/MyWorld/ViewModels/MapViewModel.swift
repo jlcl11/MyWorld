@@ -74,6 +74,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         let request = MKDirections.Request()
         request.source = MKMapItem(placemark: .init(coordinate: userLocation.coordinate))
         request.destination = destination
+        request.transportType = .walking
 
         let directions = MKDirections(request: request)
         let result = try? await directions.calculate()
@@ -89,4 +90,11 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
             }
         }
     }
+    
+    func cancelRoute() {
+        route = nil
+        routeDestination = nil
+        routeDisplaying = false
+    }
+
 }
