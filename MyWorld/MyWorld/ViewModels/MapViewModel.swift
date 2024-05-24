@@ -5,14 +5,17 @@
 //  Created by José Luis Corral on 13/5/24.
 //
 
-import _MapKit_SwiftUI
-
+import SwiftUI
+import MapKit
 
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.331516, longitude: -121.891054),
                                                span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
     @Published var results = [MKMapItem]()
+    @Published var route: MKRoute?
+    @Published var routeDestination: MKMapItem?
+    @Published var routeDisplaying = false
 
     var locationManager: CLLocationManager?
 
@@ -62,6 +65,28 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         let searchResults = try? await MKLocalSearch(request: request).start()
         DispatchQueue.main.async {
             self.results = searchResults?.mapItems ?? []
+        }
+    }
+    
+    func fetchRoute(to destination: MKMapItem) async {
+        guard let userLocation = locationManager?.location else { return }
+
+        let request = MKDirections.Request()
+        request.source = MKMapItem(placemark: .init(coordinate: userLocation.coordinate))
+        request.destination = destination
+
+        let directions = MKDirections(request: request)
+        let result = try? await directions.calculate()
+        DispatchQueue.main.async {
+            self.route = result?.routes.first
+            self.routeDestination = destination
+
+            if let rect = self.route?.polyline.boundingMapRect {
+                withAnimation(.snappy) {
+                    self.cameraPosition = .rect(rect)
+                    self.routeDisplaying = true
+                }
+            }
         }
     }
 }

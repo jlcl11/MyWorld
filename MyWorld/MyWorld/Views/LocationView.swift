@@ -12,7 +12,8 @@ struct LocationView: View {
     @Binding var mapSelection: MKMapItem?
     @Binding var show: Bool
     @State private var lookAroundScene: MKLookAroundScene?
-    
+    @State private var showWebView = false
+
     var body: some View {
         VStack {
             HStack {
@@ -31,15 +32,16 @@ struct LocationView: View {
                 Spacer()
                 
                 Button {
-                    show = false
-                    mapSelection = nil
+                    withAnimation {
+                        show = false
+                        mapSelection = nil
+                    }
                 } label: {
                     Image(systemName: "xmark.circle.fill")
                         .resizable()
                         .frame(width: 24, height: 24)
                         .foregroundStyle(.gray, Color(.systemGray6))
                 }
-                
             }
             .padding(.top)
             .padding(.horizontal)
@@ -54,7 +56,7 @@ struct LocationView: View {
                 ContentUnavailableView("No preview available", image: "eye.slash")
             }
             
-            HStack(spacing: 12){
+            HStack(spacing: 12) {
                 Button {
                     if let mapSelection {
                         mapSelection.openInMaps()
@@ -67,30 +69,44 @@ struct LocationView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
                 
-                Button {
-                    
-                } label: {
-                    
+                Button(action: {
+                    showWebView = true
+                }) {
                     Image(systemName: "globe")
                         .frame(width: 75, height: 38)
-                        .background(.blue)
-                        .foregroundStyle(.white)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
-                 
+                }
+                .sheet(isPresented: $showWebView) {
+                    if let url = mapSelection?.url ?? URL(string: "https://www.apple.com/es/") {
+                        WebView(url: url)
+                    } else {
+                        Text("Invalid URL")
+                    }
                 }
                 
-                Button {
-                  
-                } label: {
+                Button(action: {
+                    if let phoneNumber = mapSelection?.phoneNumber, let url = URL(string: "tel://\(phoneNumber)"), UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url)
+                    } else if let url = URL(string: "tel://911"), UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url)
+                    } else {
+                        // Handle the error, e.g., show an alert
+                        print("Invalid phone number or unable to make a call.")
+                    }
+                }) {
                     Image(systemName: "phone.badge.waveform")
                         .frame(width: 75, height: 38)
-                        .background(.gray)
-                        .foregroundStyle(.white)
+                        .background(Color.gray)
+                        .foregroundColor(.white)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
                 
                 Button {
-                    
+                    withAnimation {
+                   
+                    }
                 } label: {
                     Image(systemName: "arrowshape.up")
                         .frame(width: 75, height: 38)
@@ -99,13 +115,13 @@ struct LocationView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
             }
-
         }
         .onAppear {
             fetchLookAroundScene()
-        } .onChange(of: mapSelection, {
+        }
+        .onChange(of: mapSelection) { _ in
             fetchLookAroundScene()
-        })
+        }
     }
     
     func fetchLookAroundScene() {
