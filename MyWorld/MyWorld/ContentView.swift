@@ -18,8 +18,8 @@ struct ContentView: View {
     private var hasDynamicIsland: Bool {
         let screenSize = UIScreen.main.bounds.size
         let dynamicIslandScreenSizes = [
-            CGSize(width: 430, height: 932),
-            CGSize(width: 393, height: 852)
+            CGSize(width: 430, height: 932),  // iPhone 14 Pro Max
+            CGSize(width: 393, height: 852)   // iPhone 14 Pro
         ]
         return dynamicIslandScreenSizes.contains(screenSize)
     }
@@ -49,9 +49,9 @@ struct ContentView: View {
             }
             .sheet(isPresented: $showModalSheet, content: {
                 if showLocationSheet {
-                    LocationView(mapSelection: $mapSelection, show: $showLocationSheet)
+                    LocationView(mapSelection: $mapSelection, show: $showLocationSheet, showModalSheet: $showModalSheet)
                         .environmentObject(mapViewModel)
-                        .presentationDetents([ .height(340)])
+                        .presentationDetents([.height(340)])
                         .presentationBackgroundInteraction(.enabled(upThrough: .height(340)))
                         .presentationDragIndicator(.visible)
                         .presentationCornerRadius(40)
@@ -79,7 +79,7 @@ struct ContentView: View {
             .onAppear {
                 mapViewModel.checkIfLocationServicesIsEnabled()
             }
-            
+
             if mapViewModel.routeDisplaying {
                 VStack {
                     Spacer()
@@ -89,12 +89,13 @@ struct ContentView: View {
                             withAnimation {
                                 mapViewModel.cancelRoute()
                                 showModalSheet = true
+                                showLocationSheet = true // Make sure LocationView is shown again
                             }
                         }) {
                             Image(systemName: "xmark.circle.fill")
                                 .foregroundColor(.white)
                                 .padding()
-                                .background(Color.red)
+                                .background(Color.indigo)
                                 .clipShape(Circle())
                         }
                         .padding()
@@ -109,7 +110,6 @@ struct ContentView: View {
         }
     }
 }
-
 
 
 #Preview {
