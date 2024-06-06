@@ -15,6 +15,7 @@ struct LocationView: View {
     @State private var lookAroundScene: MKLookAroundScene?
     @State private var showWebView = false
     @EnvironmentObject var mapViewModel: MapViewModel
+    
 
     var body: some View {
         VStack {
@@ -32,6 +33,17 @@ struct LocationView: View {
                 }
                 
                 Spacer()
+                
+                Button {
+                    withAnimation {
+                        show = false
+                        mapSelection = nil
+                    }
+                } label: {
+                    Image(systemName: "heart")
+                        .frame(width: 24, height: 24)
+                        .foregroundStyle(.gray, Color(.systemGray6))
+                }
                 
                 Button {
                     withAnimation {
@@ -112,7 +124,7 @@ struct LocationView: View {
                             withAnimation {
                                 show = false
                                 showModalSheet = false // Added this line
-                                NotificationCenter.default.post(name: .init("DYNAMIC_ISLAND"), object: "Iniciando ruta a \(destination.placemark.name ?? "destino")")
+                                NotificationCenter.default.post(name: .init("DYNAMIC_ISLAND"), object: "You are going to \(destination.placemark.name ?? "destination")")
                             }
                         }
                     }

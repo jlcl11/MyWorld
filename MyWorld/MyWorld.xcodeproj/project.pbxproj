@@ -14,6 +14,7 @@
 		915E4B6C2BF11B7800A68B75 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915E4B6B2BF11B7800A68B75 /* ContentView.swift */; };
 		915E4B6E2BF11B7900A68B75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 915E4B6D2BF11B7900A68B75 /* Assets.xcassets */; };
 		915E4B712BF11B7900A68B75 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 915E4B702BF11B7900A68B75 /* Preview Assets.xcassets */; };
+		916820BB2C120CE7003502E9 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916820BA2C120CE7003502E9 /* SpeechRecognizer.swift */; };
 		916BD5EE2BF2A3FF0036F83B /* UserAnnotationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916BD5ED2BF2A3FF0036F83B /* UserAnnotationComponent.swift */; };
 		9172A0E32BF34B54008039A3 /* EquilateralTriangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9172A0E22BF34B54008039A3 /* EquilateralTriangle.swift */; };
 		9172A0E52BF35420008039A3 /* DestinationsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9172A0E42BF35420008039A3 /* DestinationsSheet.swift */; };
@@ -34,6 +35,7 @@
 		915E4B6B2BF11B7800A68B75 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		915E4B6D2BF11B7900A68B75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		915E4B702BF11B7900A68B75 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		916820BA2C120CE7003502E9 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
 		916BD5ED2BF2A3FF0036F83B /* UserAnnotationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAnnotationComponent.swift; sourceTree = "<group>"; };
 		9172A0E22BF34B54008039A3 /* EquilateralTriangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquilateralTriangle.swift; sourceTree = "<group>"; };
 		9172A0E42BF35420008039A3 /* DestinationsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationsSheet.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 		915427E22C11B55200C4FA9F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				916820BA2C120CE7003502E9 /* SpeechRecognizer.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 				919BD9842BFF9F7E00B87FB7 /* WebView.swift in Sources */,
 				915E4B6C2BF11B7800A68B75 /* ContentView.swift in Sources */,
 				9172A0EB2BF3714B008039A3 /* FindNearbyListItem.swift in Sources */,
+				916820BB2C120CE7003502E9 /* SpeechRecognizer.swift in Sources */,
 				916BD5EE2BF2A3FF0036F83B /* UserAnnotationComponent.swift in Sources */,
 				9172A0ED2BF38F97008039A3 /* RecentLocationItem.swift in Sources */,
 				9176CCD12BF4DD7900ABACA8 /* WavingBars.swift in Sources */,
@@ -356,6 +360,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "The app needs your location to work";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "The app needs to use the microphone";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "The app needs your permission to transcript your voice";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -386,6 +392,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "The app needs your location to work";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "The app needs to use the microphone";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "The app needs your permission to transcript your voice";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
