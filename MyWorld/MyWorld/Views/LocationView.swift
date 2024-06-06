@@ -108,9 +108,9 @@ struct LocationView: View {
                     Task {
                         if let destination = mapSelection {
                             await mapViewModel.fetchRoute(to: destination)
-                          /*  withAnimation {
-                                show = false
-                            }*/
+                            withAnimation {
+                                NotificationCenter.default.post(name: .init("DYNAMIC_ISLAND"), object: "You are going to: \(destination.placemark.name ?? "Destination")")
+                            }
                         }
                     }
                 } label: {

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9134A66C2BFBCE8E00929317 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9134A66B2BFBCE8E00929317 /* LocationView.swift */; };
+		9146F3DF2C11B1D7001072CD /* DynamicIslandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9146F3DE2C11B1D7001072CD /* DynamicIslandView.swift */; };
 		914A19732BF272980045900D /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914A19722BF272980045900D /* MapViewModel.swift */; };
 		915E4B6A2BF11B7800A68B75 /* MyWorldApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915E4B692BF11B7800A68B75 /* MyWorldApp.swift */; };
 		915E4B6C2BF11B7800A68B75 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915E4B6B2BF11B7800A68B75 /* ContentView.swift */; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		9134A66B2BFBCE8E00929317 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
+		9146F3DE2C11B1D7001072CD /* DynamicIslandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicIslandView.swift; sourceTree = "<group>"; };
 		914A19722BF272980045900D /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		915E4B662BF11B7800A68B75 /* MyWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		915E4B692BF11B7800A68B75 /* MyWorldApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWorldApp.swift; sourceTree = "<group>"; };
@@ -54,6 +56,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		915427E22C11B55200C4FA9F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		915E4B5D2BF11B7800A68B75 = {
 			isa = PBXGroup;
 			children = (
@@ -75,7 +84,7 @@
 			children = (
 				915E4B692BF11B7800A68B75 /* MyWorldApp.swift */,
 				915E4B6B2BF11B7800A68B75 /* ContentView.swift */,
-				915E4B782BF127D000A68B75 /* Models */,
+				915427E22C11B55200C4FA9F /* Models */,
 				915E4B772BF127C600A68B75 /* Views */,
 				915E4B792BF127DF00A68B75 /* ViewModels */,
 				915E4B6D2BF11B7900A68B75 /* Assets.xcassets */,
@@ -102,13 +111,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		915E4B782BF127D000A68B75 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		915E4B792BF127DF00A68B75 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,6 +130,7 @@
 				9172A0EC2BF38F97008039A3 /* RecentLocationItem.swift */,
 				9176CCD02BF4DD7900ABACA8 /* WavingBars.swift */,
 				919BD9832BFF9F7E00B87FB7 /* WebView.swift */,
+				9146F3DE2C11B1D7001072CD /* DynamicIslandView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				9172A0ED2BF38F97008039A3 /* RecentLocationItem.swift in Sources */,
 				9176CCD12BF4DD7900ABACA8 /* WavingBars.swift in Sources */,
 				9172A0E52BF35420008039A3 /* DestinationsSheet.swift in Sources */,
+				9146F3DF2C11B1D7001072CD /* DynamicIslandView.swift in Sources */,
 				9172A0E32BF34B54008039A3 /* EquilateralTriangle.swift in Sources */,
 				9172A0E92BF36510008039A3 /* LikedMealItem.swift in Sources */,
 				915E4B6A2BF11B7800A68B75 /* MyWorldApp.swift in Sources */,

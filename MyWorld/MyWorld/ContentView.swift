@@ -14,6 +14,15 @@ struct ContentView: View {
     @State private var showLocationSheet: Bool = false
     @State private var mapSelection: MKMapItem?
     @State var searchText: String = ""
+    
+    private var hasDynamicIsland: Bool {
+        let screenSize = UIScreen.main.bounds.size
+        let dynamicIslandScreenSizes = [
+            CGSize(width: 430, height: 932),
+            CGSize(width: 393, height: 852)
+        ]
+        return dynamicIslandScreenSizes.contains(screenSize)
+    }
 
     var body: some View {
         ZStack {
@@ -91,6 +100,11 @@ struct ContentView: View {
                         .padding()
                     }
                 }
+            }
+        }
+        .overlay(alignment: .top) {
+            if hasDynamicIsland {
+                DynamicIslandView()
             }
         }
     }
