@@ -11,6 +11,7 @@ import MapKit
 struct LocationView: View {
     @Binding var mapSelection: MKMapItem?
     @Binding var show: Bool
+    @Binding var showModalSheet: Bool // Added this line
     @State private var lookAroundScene: MKLookAroundScene?
     @State private var showWebView = false
     @EnvironmentObject var mapViewModel: MapViewModel
@@ -109,7 +110,9 @@ struct LocationView: View {
                         if let destination = mapSelection {
                             await mapViewModel.fetchRoute(to: destination)
                             withAnimation {
-                                NotificationCenter.default.post(name: .init("DYNAMIC_ISLAND"), object: "You are going to: \(destination.placemark.name ?? "Destination")")
+                                show = false
+                                showModalSheet = false // Added this line
+                                NotificationCenter.default.post(name: .init("DYNAMIC_ISLAND"), object: "Iniciando ruta a \(destination.placemark.name ?? "destino")")
                             }
                         }
                     }
@@ -140,3 +143,4 @@ struct LocationView: View {
         }
     }
 }
+

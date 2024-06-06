@@ -16,7 +16,7 @@ struct DynamicIslandView: View {
         HStack {
             Image(systemName: "arrow.up")
                 .controlSize(.large)
-                .foregroundColor(.accentColor)
+                .foregroundColor(.indigo)
                 
             
             
