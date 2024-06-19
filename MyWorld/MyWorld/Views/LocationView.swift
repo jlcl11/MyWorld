@@ -14,9 +14,10 @@ struct LocationView: View {
     @Binding var showModalSheet: Bool // Added this line
     @State private var lookAroundScene: MKLookAroundScene?
     @State private var showWebView = false
+    @State private var isHeartFilled = false // Added this line
     @EnvironmentObject var mapViewModel: MapViewModel
+    @State private var scaleEffect: CGFloat = 1.0 // Added this line
     
-
     var body: some View {
         VStack {
             HStack {
@@ -35,15 +36,16 @@ struct LocationView: View {
                 Spacer()
                 
                 Button {
-                    withAnimation {
-                        show = false
-                        mapSelection = nil
-                    }
+                        isHeartFilled.toggle()
+                        scaleEffect = isHeartFilled ? 1.2 : 1.0
                 } label: {
-                    Image(systemName: "heart")
+                    Image(systemName: isHeartFilled ? "heart.fill" : "heart")
                         .frame(width: 24, height: 24)
-                        .foregroundStyle(.gray, Color(.systemGray6))
+                        .foregroundStyle(isHeartFilled ? .indigo : .gray, Color(.systemGray6))
+                        .scaleEffect(scaleEffect)
+                        .animation(.easeInOut(duration: 0.3), value: scaleEffect)
                 }
+                .contentTransition(.symbolEffect(.replace))
                 
                 Button {
                     withAnimation {
@@ -155,4 +157,3 @@ struct LocationView: View {
         }
     }
 }
-
