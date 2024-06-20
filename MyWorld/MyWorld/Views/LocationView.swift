@@ -7,16 +7,19 @@
 
 import SwiftUI
 import MapKit
+import SwiftData
 
 struct LocationView: View {
     @Binding var mapSelection: MKMapItem?
     @Binding var show: Bool
-    @Binding var showModalSheet: Bool // Added this line
+    @Binding var showModalSheet: Bool
     @State private var lookAroundScene: MKLookAroundScene?
     @State private var showWebView = false
-    @State private var isHeartFilled = false // Added this line
+    @State private var isHeartFilled = false
     @EnvironmentObject var mapViewModel: MapViewModel
-    @State private var scaleEffect: CGFloat = 1.0 // Added this line
+    @Environment(\.modelContext) private var modelContext: ModelContext
+    @Query private var favoriteLocations: [FavoriteLocation]
+    @State private var scaleEffect: CGFloat = 1.0
     
     var body: some View {
         VStack {
@@ -36,8 +39,13 @@ struct LocationView: View {
                 Spacer()
                 
                 Button {
-                        isHeartFilled.toggle()
-                        scaleEffect = isHeartFilled ? 1.2 : 1.0
+                    if isHeartFilled {
+                        removeFavorite()
+                    } else {
+                        addFavorite()
+                    }
+                    isHeartFilled.toggle()
+                    scaleEffect = isHeartFilled ? 1.2 : 1.0
                 } label: {
                     Image(systemName: isHeartFilled ? "heart.fill" : "heart")
                         .frame(width: 24, height: 24)
@@ -108,7 +116,6 @@ struct LocationView: View {
                     } else if let url = URL(string: "tel://911"), UIApplication.shared.canOpenURL(url) {
                         UIApplication.shared.open(url)
                     } else {
-                        // Handle the error, e.g., show an alert
                         print("Invalid phone number or unable to make a call.")
                     }
                 }) {
@@ -125,7 +132,7 @@ struct LocationView: View {
                             await mapViewModel.fetchRoute(to: destination)
                             withAnimation {
                                 show = false
-                                showModalSheet = false // Added this line
+                                showModalSheet = false
                                 NotificationCenter.default.post(name: .init("DYNAMIC_ISLAND"), object: "You are going to \(destination.placemark.name ?? "destination")")
                             }
                         }
@@ -141,9 +148,11 @@ struct LocationView: View {
         }
         .onAppear {
             fetchLookAroundScene()
+            checkIfFavorite()
         }
         .onChange(of: mapSelection) { _ in
             fetchLookAroundScene()
+            checkIfFavorite()
         }
     }
     
@@ -156,4 +165,27 @@ struct LocationView: View {
             }
         }
     }
+
+    private func checkIfFavorite() {
+        if let name = mapSelection?.placemark.name {
+            isHeartFilled = favoriteLocations.contains { $0.name == name }
+        }
+    }
+    
+    private func addFavorite() {
+        guard let mapSelection = mapSelection else { return }
+        let newFavorite = FavoriteLocation(name: mapSelection.placemark.name ?? "",
+                                           address: mapSelection.placemark.title ?? "",
+                                           latitude: mapSelection.placemark.coordinate.latitude,
+                                           longitude: mapSelection.placemark.coordinate.longitude)
+        modelContext.insert(newFavorite)
+    }
+
+    private func removeFavorite() {
+        guard let mapSelection = mapSelection else { return }
+        if let favorite = favoriteLocations.first(where: { $0.name == mapSelection.placemark.name }) {
+            modelContext.delete(favorite)
+        }
+    }
 }
+

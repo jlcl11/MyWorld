@@ -24,6 +24,7 @@
 		9172A0ED2BF38F97008039A3 /* RecentLocationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9172A0EC2BF38F97008039A3 /* RecentLocationItem.swift */; };
 		9176CCD12BF4DD7900ABACA8 /* WavingBars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9176CCD02BF4DD7900ABACA8 /* WavingBars.swift */; };
 		919BD9842BFF9F7E00B87FB7 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919BD9832BFF9F7E00B87FB7 /* WebView.swift */; };
+		91BC85F82C2427EA000EC920 /* FavoriteLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BC85F72C2427EA000EC920 /* FavoriteLocation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		9172A0EC2BF38F97008039A3 /* RecentLocationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentLocationItem.swift; sourceTree = "<group>"; };
 		9176CCD02BF4DD7900ABACA8 /* WavingBars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavingBars.swift; sourceTree = "<group>"; };
 		919BD9832BFF9F7E00B87FB7 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		91BC85F72C2427EA000EC920 /* FavoriteLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				916820BA2C120CE7003502E9 /* SpeechRecognizer.swift */,
+				91BC85F72C2427EA000EC920 /* FavoriteLocation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 				9172A0ED2BF38F97008039A3 /* RecentLocationItem.swift in Sources */,
 				9176CCD12BF4DD7900ABACA8 /* WavingBars.swift in Sources */,
 				9172A0E52BF35420008039A3 /* DestinationsSheet.swift in Sources */,
+				91BC85F82C2427EA000EC920 /* FavoriteLocation.swift in Sources */,
 				9146F3DF2C11B1D7001072CD /* DynamicIslandView.swift in Sources */,
 				9172A0E32BF34B54008039A3 /* EquilateralTriangle.swift in Sources */,
 				9172A0E92BF36510008039A3 /* LikedMealItem.swift in Sources */,
