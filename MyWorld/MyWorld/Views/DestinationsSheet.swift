@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct DestinationsSheet: View {
     @Binding var searchText: String
@@ -14,13 +15,14 @@ struct DestinationsSheet: View {
         FindNearbyListItem(color: .green, imageName: "fork.knife", locationName: "Restaurants"),
         FindNearbyListItem(color: .yellow, imageName: "building.columns", locationName: "Banks & ATMS")
     ]
-
+    @Query private var favoriteLocations: [FavoriteLocation]
+    
     @State private var recentHistoryItems: [RecentLocationItem] = [
         RecentLocationItem(name: "Kendom", adress: "Mojo Dojo Casa House, BarbieLand"),
         RecentLocationItem(name: "Kendom", adress: "Mojo Dojo Casa House, BarbieLand"),
         RecentLocationItem(name: "Kendom", adress: "Mojo Dojo Casa House, BarbieLand")
     ]
-
+    
     @State private var showFindMoreButton: Bool = true
 
     var body: some View {
@@ -39,12 +41,13 @@ struct DestinationsSheet: View {
 
                 ScrollView(.horizontal) {
                     HStack {
-                        ForEach(1..<100) { n in
-                            LikedMealItem(iconName: "heart.fill", locationName: "\(n)", subtitle: "Go there")
+                        ForEach(favoriteLocations) { location in
+                            LikedMealItem(iconName: "heart.fill", locationName: location.name, subtitle: location.address)
                         }
                     }
                 }
                 .padding(.vertical)
+
 
                 Section(header: HStack {
                     Text("Find Nearby").font(.footnote).foregroundStyle(.gray).bold()
