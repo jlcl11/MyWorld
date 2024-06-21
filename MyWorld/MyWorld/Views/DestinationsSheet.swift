@@ -37,7 +37,7 @@ struct DestinationsSheet: View {
                 }
 
                 CustomTextField(searchText: $searchText)
-                    .padding(.bottom, 10)
+
 
                 ScrollView(.horizontal) {
                     HStack {
