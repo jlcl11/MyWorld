@@ -15,15 +15,11 @@ struct DestinationsSheet: View {
         FindNearbyListItem(color: .green, imageName: "fork.knife", locationName: "Restaurants"),
         FindNearbyListItem(color: .yellow, imageName: "building.columns", locationName: "Banks & ATMS")
     ]
+    @Query private var recentLocations: [RecentLocation]
     @Query private var favoriteLocations: [FavoriteLocation]
     
-    @State private var recentHistoryItems: [RecentLocationItem] = [
-        RecentLocationItem(name: "Kendom", adress: "Mojo Dojo Casa House, BarbieLand"),
-        RecentLocationItem(name: "Kendom", adress: "Mojo Dojo Casa House, BarbieLand"),
-        RecentLocationItem(name: "Kendom", adress: "Mojo Dojo Casa House, BarbieLand")
-    ]
-    
     @State private var showFindMoreButton: Bool = true
+    @State private var showFullHistory: Bool = false
 
     var body: some View {
         ScrollView {
@@ -38,7 +34,6 @@ struct DestinationsSheet: View {
 
                 CustomTextField(searchText: $searchText)
 
-
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(favoriteLocations) { location in
@@ -47,7 +42,6 @@ struct DestinationsSheet: View {
                     }
                 }
                 .padding(.vertical)
-
 
                 Section(header: HStack {
                     Text("Find Nearby").font(.footnote).foregroundStyle(.gray).bold()
@@ -90,20 +84,25 @@ struct DestinationsSheet: View {
                     Text("Recent").font(.footnote).foregroundStyle(.gray).bold()
                     Spacer()
                 }.padding(.vertical, 5)) {
-                    ForEach(recentHistoryItems, id: \.name) { item in
-                        RecentLocationItem(name: item.name, adress: item.adress)
+                    ForEach(showFullHistory ? recentLocations.reversed() : Array(recentLocations.reversed().prefix(3))) { item in
+                        RecentLocationItem(likedLocation: item)
                         Divider()
                     }
                 }
 
-                VStack(alignment: .leading) {
-                    Button {
-                    } label: {
-                        Text("Show the whole history")
-                            .underline()
+                if !showFullHistory {
+                    VStack(alignment: .leading) {
+                        Button {
+                            withAnimation {
+                                showFullHistory = true
+                            }
+                        } label: {
+                            Text("Show the whole history")
+                                .underline()
+                        }
                     }
+                    .padding()
                 }
-                .padding()
             }
             .padding()
         }

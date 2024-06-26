@@ -25,6 +25,7 @@
 		9176CCD12BF4DD7900ABACA8 /* WavingBars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9176CCD02BF4DD7900ABACA8 /* WavingBars.swift */; };
 		919BD9842BFF9F7E00B87FB7 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919BD9832BFF9F7E00B87FB7 /* WebView.swift */; };
 		91BC85F82C2427EA000EC920 /* FavoriteLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BC85F72C2427EA000EC920 /* FavoriteLocation.swift */; };
+		91EABC742C2C3C6B00589544 /* RecentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EABC732C2C3C6B00589544 /* RecentLocation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		9176CCD02BF4DD7900ABACA8 /* WavingBars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavingBars.swift; sourceTree = "<group>"; };
 		919BD9832BFF9F7E00B87FB7 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		91BC85F72C2427EA000EC920 /* FavoriteLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteLocation.swift; sourceTree = "<group>"; };
+		91EABC732C2C3C6B00589544 /* RecentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 			children = (
 				916820BA2C120CE7003502E9 /* SpeechRecognizer.swift */,
 				91BC85F72C2427EA000EC920 /* FavoriteLocation.swift */,
+				91EABC732C2C3C6B00589544 /* RecentLocation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 			files = (
 				9172A0E72BF356E0008039A3 /* CustomTextField.swift in Sources */,
 				9134A66C2BFBCE8E00929317 /* LocationView.swift in Sources */,
+				91EABC742C2C3C6B00589544 /* RecentLocation.swift in Sources */,
 				919BD9842BFF9F7E00B87FB7 /* WebView.swift in Sources */,
 				915E4B6C2BF11B7800A68B75 /* ContentView.swift in Sources */,
 				9172A0EB2BF3714B008039A3 /* FindNearbyListItem.swift in Sources */,

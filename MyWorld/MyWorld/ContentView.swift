@@ -89,7 +89,7 @@ struct ContentView: View {
                             withAnimation {
                                 mapViewModel.cancelRoute()
                                 showModalSheet = true
-                                showLocationSheet = true // Make sure LocationView is shown again
+                                showLocationSheet = true 
                             }
                         }) {
                             Image(systemName: "xmark.circle.fill")

@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftData
-
+ 
 @Model
 final class FavoriteLocation {
     @Attribute(.unique) var id: UUID
@@ -15,6 +15,7 @@ final class FavoriteLocation {
     var address: String
     var latitude: Double
     var longitude: Double
+    var date: Date
 
     init(name: String, address: String, latitude: Double, longitude: Double) {
         self.id = UUID()
@@ -22,5 +23,7 @@ final class FavoriteLocation {
         self.address = address
         self.latitude = latitude
         self.longitude = longitude
+        self.date = Date()
     }
 }
+
