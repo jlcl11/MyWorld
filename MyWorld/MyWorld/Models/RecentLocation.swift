@@ -1,15 +1,15 @@
 //
-//  FavoriteLocation.swift
+//  RecentLocation.swift
 //  MyWorld
 //
-//  Created by José Luis Corral on 20/6/24.
+//  Created by José Luis Corral on 26/6/24.
 //
 
 import Foundation
 import SwiftData
- 
+
 @Model
-final class FavoriteLocation {
+final class RecentLocation {
     @Attribute(.unique) var id: UUID
     var name: String
     var address: String

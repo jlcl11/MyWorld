@@ -19,8 +19,9 @@ struct LocationView: View {
     @EnvironmentObject var mapViewModel: MapViewModel
     @Environment(\.modelContext) private var modelContext: ModelContext
     @Query private var favoriteLocations: [FavoriteLocation]
+    @Query private var recentLocations: [RecentLocation]
     @State private var scaleEffect: CGFloat = 1.0
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -149,10 +150,12 @@ struct LocationView: View {
         .onAppear {
             fetchLookAroundScene()
             checkIfFavorite()
+            addRecent()
         }
         .onChange(of: mapSelection) { _ in
             fetchLookAroundScene()
             checkIfFavorite()
+            addRecent()
         }
     }
     
@@ -187,5 +190,13 @@ struct LocationView: View {
             modelContext.delete(favorite)
         }
     }
+    
+    private func addRecent() {
+        guard let mapSelection = mapSelection else { return }
+        let newRecent = RecentLocation(name: mapSelection.placemark.name ?? "",
+                                       address: mapSelection.placemark.title ?? "",
+                                       latitude: mapSelection.placemark.coordinate.latitude,
+                                       longitude: mapSelection.placemark.coordinate.longitude)
+        modelContext.insert(newRecent)
+    }
 }
-

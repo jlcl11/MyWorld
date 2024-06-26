@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct RecentLocationItem: View {
-    var name: String
-    var adress: String
+    var likedLocation: RecentLocation
     var body: some View {
         
       
@@ -21,11 +20,11 @@ struct RecentLocationItem: View {
                     .padding(.horizontal, 20)
                 
                 VStack(alignment: .leading){
-                    Text(name)
+                    Text(likedLocation.name)
                         .foregroundStyle(.primary)
                         .font(.headline)
                     
-                    Text(adress)
+                    Text(likedLocation.address)
                         .foregroundStyle(.primary)
                         .font(.subheadline)
                 }
@@ -34,8 +33,4 @@ struct RecentLocationItem: View {
         }
 
     }
-
-
-#Preview {
-    RecentLocationItem(name: "Casa", adress: "Mojo Dojo Casa House, BarbieLand")
-}
+ 

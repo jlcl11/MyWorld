@@ -13,7 +13,7 @@ struct YourAppNameApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .modelContainer(for: [FavoriteLocation.self])
+                .modelContainer(for: [FavoriteLocation.self, RecentLocation.self])
         }
     }
 }
