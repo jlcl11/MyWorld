@@ -14,12 +14,12 @@ struct ContentView: View {
     @State private var showLocationSheet: Bool = false
     @State private var mapSelection: MKMapItem?
     @State var searchText: String = ""
-    
+
     private var hasDynamicIsland: Bool {
         let screenSize = UIScreen.main.bounds.size
         let dynamicIslandScreenSizes = [
-            CGSize(width: 430, height: 932),  // iPhone 14 Pro Max
-            CGSize(width: 393, height: 852)   // iPhone 14 Pro
+            CGSize(width: 430, height: 932),
+            CGSize(width: 393, height: 852)
         ]
         return dynamicIslandScreenSizes.contains(screenSize)
     }
@@ -61,6 +61,7 @@ struct ContentView: View {
                         })
                 } else {
                     DestinationsSheet(searchText: $searchText)
+                        .environmentObject(mapViewModel)  // <-- Inyecta MapViewModel aquí
                         .presentationDetents([.height(120), .medium, .height(720)])
                         .presentationBackgroundInteraction(.enabled(upThrough: .height(120)))
                         .presentationCornerRadius(40)
@@ -89,7 +90,7 @@ struct ContentView: View {
                             withAnimation {
                                 mapViewModel.cancelRoute()
                                 showModalSheet = true
-                                showLocationSheet = true 
+                                showLocationSheet = true
                             }
                         }) {
                             Image(systemName: "xmark.circle.fill")
@@ -110,7 +111,6 @@ struct ContentView: View {
         }
     }
 }
-
 
 #Preview {
     ContentView()
