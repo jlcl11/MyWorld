@@ -60,8 +60,8 @@ struct ContentView: View {
                             showLocationSheet = newValue != nil
                         })
                 } else {
-                    DestinationsSheet(searchText: $searchText)
-                        .environmentObject(mapViewModel)  // <-- Inyecta MapViewModel aquí
+                    DestinationsSheet(searchText: $searchText, mapSelection: $mapSelection, showLocationSheet: $showLocationSheet)
+                        .environmentObject(mapViewModel)
                         .presentationDetents([.height(120), .medium, .height(720)])
                         .presentationBackgroundInteraction(.enabled(upThrough: .height(120)))
                         .presentationCornerRadius(40)

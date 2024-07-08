@@ -11,7 +11,10 @@ import MapKit
 
 struct DestinationsSheet: View {
     @Binding var searchText: String
+    @Binding var mapSelection: MKMapItem?
+    @Binding var showLocationSheet: Bool
     @EnvironmentObject var mapViewModel: MapViewModel
+
     @State private var initialNearbyItems: [FindNearbyListItem] = [
         FindNearbyListItem(color: .red, imageName: "fuelpump", locationName: "Gas Stations"),
         FindNearbyListItem(color: .green, imageName: "fork.knife", locationName: "Restaurants"),
@@ -19,7 +22,7 @@ struct DestinationsSheet: View {
     ]
     @Query private var recentLocations: [RecentLocation]
     @Query private var favoriteLocations: [FavoriteLocation]
-
+    
     @State private var showFindMoreButton: Bool = true
     @State private var showFullHistory: Bool = false
 
@@ -40,12 +43,6 @@ struct DestinationsSheet: View {
                     HStack {
                         ForEach(favoriteLocations) { location in
                             LikedMealItem(iconName: "heart.fill", locationName: location.name, subtitle: location.address)
-                                .onTapGesture {
-                                    let placemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
-                                    let mapItem = MKMapItem(placemark: placemark)
-                                    mapItem.name = location.name
-                                    mapViewModel.updateCameraAndFetchInfo(for: mapItem)
-                                }
                         }
                     }
                 }
@@ -98,7 +95,10 @@ struct DestinationsSheet: View {
                                 let placemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: item.latitude, longitude: item.longitude))
                                 let mapItem = MKMapItem(placemark: placemark)
                                 mapItem.name = item.name
-                                mapViewModel.updateCameraAndFetchInfo(for: mapItem)
+
+                                Task {
+                                    await mapViewModel.updateCameraAndFetchInfo(for: mapItem, mapSelection: $mapSelection, showLocationSheet: $showLocationSheet)
+                                }
                             }
                         Divider()
                     }
@@ -121,9 +121,4 @@ struct DestinationsSheet: View {
             .padding()
         }
     }
-}
-
-
-#Preview {
-    DestinationsSheet(searchText: .constant(""))
 }
