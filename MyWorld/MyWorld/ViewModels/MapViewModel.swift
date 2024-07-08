@@ -97,34 +97,35 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         routeDestination = nil
         routeDisplaying = false
     }
+    
+    func updateCameraAndFetchInfo(for mapItem: MKMapItem, mapSelection: Binding<MKMapItem?>, showLocationSheet: Binding<Bool>) async {
+           // Update camera position
+           let coordinate = mapItem.placemark.coordinate
+           DispatchQueue.main.async {
+               withAnimation {
+                   self.cameraPosition = .region(MKCoordinateRegion(
+                       center: coordinate,
+                       span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                   ))
+               }
+           }
 
-    func updateCameraAndFetchInfo(for mapItem: MKMapItem) {
-        // Actualizar la región para centrarla en la ubicación del `mapItem`
-        self.region = MKCoordinateRegion(center: mapItem.placemark.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
-        self.cameraPosition = .region(self.region)
+           // Fetch detailed information
+           let request = MKLocalSearch.Request()
+           request.naturalLanguageQuery = mapItem.name
+           request.region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
 
-        // Buscar más detalles del lugar
-        Task {
-            await self.fetchPlaceDetails(for: mapItem)
-        }
-    }
-
-    private func fetchPlaceDetails(for mapItem: MKMapItem) async {
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = mapItem.name
-        request.region = self.region
-
-        do {
-            let response = try await MKLocalSearch(request: request).start()
-            if let detailedMapItem = response.mapItems.first {
-                DispatchQueue.main.async {
-                    // Actualizar el `mapItem` con más detalles si es necesario
-                    mapItem.phoneNumber = detailedMapItem.phoneNumber
-                    mapItem.url = detailedMapItem.url
-                }
-            }
-        } catch {
-            print("Error fetching place details: \(error.localizedDescription)")
-        }
-    }
-}
+           do {
+               let response = try await MKLocalSearch(request: request).start()
+               if let updatedMapItem = response.mapItems.first {
+                   DispatchQueue.main.async {
+                       // Replace the mapItem with detailed information
+                       mapSelection.wrappedValue = updatedMapItem
+                       showLocationSheet.wrappedValue = true
+                   }
+               }
+           } catch {
+               print("Failed to fetch detailed information: \(error)")
+           }
+       }
+   }
