@@ -43,6 +43,15 @@ struct DestinationsSheet: View {
                     HStack {
                         ForEach(favoriteLocations) { location in
                             LikedMealItem(iconName: "heart.fill", locationName: location.name, subtitle: location.address)
+                                .onTapGesture {
+                                    let placemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
+                                    let mapItem = MKMapItem(placemark: placemark)
+                                    mapItem.name = location.name
+
+                                    Task {
+                                        await mapViewModel.updateCameraAndFetchInfo(for: mapItem, mapSelection: $mapSelection, showLocationSheet: $showLocationSheet)
+                                    }
+                                }
                         }
                     }
                 }
