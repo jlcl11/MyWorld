@@ -6,9 +6,7 @@
 //
 
 import SwiftUI
-
-import SwiftUI
-
+ 
 struct LikedMealItem: View {
     var iconName: String
     var locationName: String

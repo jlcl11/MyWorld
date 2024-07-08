@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MapKit
+import Combine
 
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
@@ -67,7 +68,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
             self.results = searchResults?.mapItems ?? []
         }
     }
-    
+
     func fetchRoute(to destination: MKMapItem) async {
         guard let userLocation = locationManager?.location else { return }
 
@@ -90,11 +91,40 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
             }
         }
     }
-    
+
     func cancelRoute() {
         route = nil
         routeDestination = nil
         routeDisplaying = false
     }
 
+    func updateCameraAndFetchInfo(for mapItem: MKMapItem) {
+        // Actualizar la región para centrarla en la ubicación del `mapItem`
+        self.region = MKCoordinateRegion(center: mapItem.placemark.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
+        self.cameraPosition = .region(self.region)
+
+        // Buscar más detalles del lugar
+        Task {
+            await self.fetchPlaceDetails(for: mapItem)
+        }
+    }
+
+    private func fetchPlaceDetails(for mapItem: MKMapItem) async {
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = mapItem.name
+        request.region = self.region
+
+        do {
+            let response = try await MKLocalSearch(request: request).start()
+            if let detailedMapItem = response.mapItems.first {
+                DispatchQueue.main.async {
+                    // Actualizar el `mapItem` con más detalles si es necesario
+                    mapItem.phoneNumber = detailedMapItem.phoneNumber
+                    mapItem.url = detailedMapItem.url
+                }
+            }
+        } catch {
+            print("Error fetching place details: \(error.localizedDescription)")
+        }
+    }
 }

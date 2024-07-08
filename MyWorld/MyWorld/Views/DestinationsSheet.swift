@@ -7,9 +7,11 @@
 
 import SwiftUI
 import SwiftData
+import MapKit
 
 struct DestinationsSheet: View {
     @Binding var searchText: String
+    @EnvironmentObject var mapViewModel: MapViewModel
     @State private var initialNearbyItems: [FindNearbyListItem] = [
         FindNearbyListItem(color: .red, imageName: "fuelpump", locationName: "Gas Stations"),
         FindNearbyListItem(color: .green, imageName: "fork.knife", locationName: "Restaurants"),
@@ -17,7 +19,7 @@ struct DestinationsSheet: View {
     ]
     @Query private var recentLocations: [RecentLocation]
     @Query private var favoriteLocations: [FavoriteLocation]
-    
+
     @State private var showFindMoreButton: Bool = true
     @State private var showFullHistory: Bool = false
 
@@ -38,6 +40,12 @@ struct DestinationsSheet: View {
                     HStack {
                         ForEach(favoriteLocations) { location in
                             LikedMealItem(iconName: "heart.fill", locationName: location.name, subtitle: location.address)
+                                .onTapGesture {
+                                    let placemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
+                                    let mapItem = MKMapItem(placemark: placemark)
+                                    mapItem.name = location.name
+                                    mapViewModel.updateCameraAndFetchInfo(for: mapItem)
+                                }
                         }
                     }
                 }
@@ -86,6 +94,12 @@ struct DestinationsSheet: View {
                 }.padding(.vertical, 5)) {
                     ForEach(showFullHistory ? recentLocations.reversed() : Array(recentLocations.reversed().prefix(3))) { item in
                         RecentLocationItem(likedLocation: item)
+                            .onTapGesture {
+                                let placemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: item.latitude, longitude: item.longitude))
+                                let mapItem = MKMapItem(placemark: placemark)
+                                mapItem.name = item.name
+                                mapViewModel.updateCameraAndFetchInfo(for: mapItem)
+                            }
                         Divider()
                     }
                 }
@@ -108,6 +122,7 @@ struct DestinationsSheet: View {
         }
     }
 }
+
 
 #Preview {
     DestinationsSheet(searchText: .constant(""))
