@@ -99,33 +99,36 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
     }
     
     func updateCameraAndFetchInfo(for mapItem: MKMapItem, mapSelection: Binding<MKMapItem?>, showLocationSheet: Binding<Bool>) async {
-           // Update camera position
-           let coordinate = mapItem.placemark.coordinate
-           DispatchQueue.main.async {
-               withAnimation {
-                   self.cameraPosition = .region(MKCoordinateRegion(
-                       center: coordinate,
-                       span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-                   ))
-               }
-           }
+        // Update camera position
+        let coordinate = mapItem.placemark.coordinate
+        DispatchQueue.main.async {
+            withAnimation {
+                self.cameraPosition = .region(MKCoordinateRegion(
+                    center: coordinate,
+                    span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                ))
+            }
+        }
 
-           // Fetch detailed information
-           let request = MKLocalSearch.Request()
-           request.naturalLanguageQuery = mapItem.name
-           request.region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        // Fetch detailed information
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = mapItem.name
+        request.region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
 
-           do {
-               let response = try await MKLocalSearch(request: request).start()
-               if let updatedMapItem = response.mapItems.first {
-                   DispatchQueue.main.async {
-                       // Replace the mapItem with detailed information
-                       mapSelection.wrappedValue = updatedMapItem
-                       showLocationSheet.wrappedValue = true
-                   }
-               }
-           } catch {
-               print("Failed to fetch detailed information: \(error)")
-           }
-       }
+        do {
+            let response = try await MKLocalSearch(request: request).start()
+            if let updatedMapItem = response.mapItems.first {
+                DispatchQueue.main.async {
+                    // Replace the mapItem with detailed information
+                    mapSelection.wrappedValue = updatedMapItem
+                    showLocationSheet.wrappedValue = true
+                    
+                    // Update results with only this item
+                    self.results = [updatedMapItem]
+                }
+            }
+        } catch {
+            print("Failed to fetch detailed information: \(error)")
+        }
+    }
    }
