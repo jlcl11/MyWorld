@@ -17,6 +17,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
     @Published var route: MKRoute?
     @Published var routeDestination: MKMapItem?
     @Published var routeDisplaying = false
+    @Published var lookAroundScene: MKLookAroundScene?
 
     var locationManager: CLLocationManager?
 
@@ -129,6 +130,14 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
             }
         } catch {
             print("Failed to fetch detailed information: \(error)")
+        }
+    }
+    
+    func fetchLookAroundScene(for mapItem: MKMapItem) {
+        lookAroundScene = nil
+        Task {
+            let request = MKLookAroundSceneRequest(mapItem: mapItem)
+            lookAroundScene = try? await request.scene
         }
     }
 }

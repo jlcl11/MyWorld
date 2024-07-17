@@ -13,7 +13,6 @@ struct LocationView: View {
     @Binding var mapSelection: MKMapItem?
     @Binding var show: Bool
     @Binding var showModalSheet: Bool
-    @State private var lookAroundScene: MKLookAroundScene?
     @State private var showWebView = false
     @State private var isHeartFilled = false
     @EnvironmentObject var mapViewModel: MapViewModel
@@ -71,8 +70,8 @@ struct LocationView: View {
             .padding(.top)
             .padding(.horizontal)
             
-            if let scene = lookAroundScene {
-                LookAroundPreview(initialScene: scene)
+            if let lookAroundScene = mapViewModel.lookAroundScene {
+                LookAroundPreview(initialScene: lookAroundScene)
                     .frame(height: 200)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     .padding(.horizontal)
@@ -148,27 +147,21 @@ struct LocationView: View {
             }
         }
         .onAppear {
-            fetchLookAroundScene()
+            if let mapSelection = mapSelection {
+                mapViewModel.fetchLookAroundScene(for: mapSelection)
+            }
             checkIfFavorite()
             addRecent()
         }
-        .onChange(of: mapSelection) { _ in
-            fetchLookAroundScene()
+        .onChange(of: mapSelection) { newValue in
+            if let newValue = newValue {
+                mapViewModel.fetchLookAroundScene(for: newValue)
+            }
             checkIfFavorite()
             addRecent()
         }
     }
     
-    func fetchLookAroundScene() {
-        if let mapSelection {
-            lookAroundScene = nil
-            Task {
-                let request = MKLookAroundSceneRequest(mapItem: mapSelection)
-                lookAroundScene = try? await request.scene
-            }
-        }
-    }
-
     private func checkIfFavorite() {
         if let name = mapSelection?.placemark.name {
             isHeartFilled = favoriteLocations.contains { $0.name == name }
