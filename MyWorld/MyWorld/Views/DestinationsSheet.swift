@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
 import MapKit
 
 struct DestinationsSheet: View {
@@ -14,14 +13,13 @@ struct DestinationsSheet: View {
     @Binding var mapSelection: MKMapItem?
     @Binding var showLocationSheet: Bool
     @EnvironmentObject var mapViewModel: MapViewModel
+    @EnvironmentObject var dataViewModel: SwiftDataViewModel
 
     @State private var initialNearbyItems: [FindNearbyListItem] = [
         FindNearbyListItem(color: .red, imageName: "fuelpump", locationName: "Gas Stations"),
         FindNearbyListItem(color: .green, imageName: "fork.knife", locationName: "Restaurants"),
         FindNearbyListItem(color: .yellow, imageName: "building.columns", locationName: "Banks & ATMS")
     ]
-    @Query private var recentLocations: [RecentLocation]
-    @Query private var favoriteLocations: [FavoriteLocation]
     
     @State private var showFindMoreButton: Bool = true
     @State private var showFullHistory: Bool = false
@@ -41,7 +39,7 @@ struct DestinationsSheet: View {
 
                 ScrollView(.horizontal) {
                     HStack {
-                        ForEach(favoriteLocations) { location in
+                        ForEach(dataViewModel.favoriteLocations) { location in
                             LikedMealItem(iconName: "heart.fill", locationName: location.name, subtitle: location.address)
                                 .onTapGesture {
                                     let placemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
@@ -98,7 +96,7 @@ struct DestinationsSheet: View {
                     Text("Recent").font(.footnote).foregroundStyle(.gray).bold()
                     Spacer()
                 }.padding(.vertical, 5)) {
-                    ForEach(showFullHistory ? recentLocations.reversed() : Array(recentLocations.reversed().prefix(3))) { item in
+                    ForEach(showFullHistory ? dataViewModel.recentLocations.reversed() : Array(dataViewModel.recentLocations.reversed().prefix(3))) { item in
                         RecentLocationItem(likedLocation: item)
                             .onTapGesture {
                                 let placemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: item.latitude, longitude: item.longitude))
@@ -128,6 +126,10 @@ struct DestinationsSheet: View {
                 }
             }
             .padding()
+        }
+        .onAppear {
+            dataViewModel.getFavoriteLocations()
+            dataViewModel.getRecentLocations()
         }
     }
 }

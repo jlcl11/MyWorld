@@ -7,7 +7,6 @@
 
 import SwiftUI
 import MapKit
-import SwiftData
 
 struct LocationView: View {
     @Binding var mapSelection: MKMapItem?
@@ -16,9 +15,7 @@ struct LocationView: View {
     @State private var showWebView = false
     @State private var isHeartFilled = false
     @EnvironmentObject var mapViewModel: MapViewModel
-    @Environment(\.modelContext) private var modelContext: ModelContext
-    @Query private var favoriteLocations: [FavoriteLocation]
-    @Query private var recentLocations: [RecentLocation]
+    @Environment(SwiftDataViewModel.self) var swiftDataViewModel
     @State private var scaleEffect: CGFloat = 1.0
 
     var body: some View {
@@ -163,8 +160,8 @@ struct LocationView: View {
     }
     
     private func checkIfFavorite() {
-        if let name = mapSelection?.placemark.name {
-            isHeartFilled = favoriteLocations.contains { $0.name == name }
+        if let mapSelection = mapSelection {
+            isHeartFilled = swiftDataViewModel.isLocationFavorite(mapSelection)
         }
     }
     
@@ -174,13 +171,13 @@ struct LocationView: View {
                                            address: mapSelection.placemark.title ?? "",
                                            latitude: mapSelection.placemark.coordinate.latitude,
                                            longitude: mapSelection.placemark.coordinate.longitude)
-        modelContext.insert(newFavorite)
+        swiftDataViewModel.insertFavoriteLocation(location: newFavorite)
     }
 
     private func removeFavorite() {
         guard let mapSelection = mapSelection else { return }
-        if let favorite = favoriteLocations.first(where: { $0.name == mapSelection.placemark.name }) {
-            modelContext.delete(favorite)
+        if let favorite = swiftDataViewModel.favoriteLocations.first(where: { $0.name == mapSelection.placemark.name }) {
+            swiftDataViewModel.deleteFavoriteLocation(location: favorite)
         }
     }
     
@@ -190,6 +187,6 @@ struct LocationView: View {
                                        address: mapSelection.placemark.title ?? "",
                                        latitude: mapSelection.placemark.coordinate.latitude,
                                        longitude: mapSelection.placemark.coordinate.longitude)
-        modelContext.insert(newRecent)
+        swiftDataViewModel.insertRecentLocation(location: newRecent)
     }
 }
