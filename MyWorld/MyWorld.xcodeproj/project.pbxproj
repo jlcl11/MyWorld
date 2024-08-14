@@ -23,10 +23,13 @@
 		9172A0EB2BF3714B008039A3 /* FindNearbyListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9172A0EA2BF3714B008039A3 /* FindNearbyListItem.swift */; };
 		9172A0ED2BF38F97008039A3 /* RecentLocationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9172A0EC2BF38F97008039A3 /* RecentLocationItem.swift */; };
 		9176CCD12BF4DD7900ABACA8 /* WavingBars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9176CCD02BF4DD7900ABACA8 /* WavingBars.swift */; };
-		919BD9842BFF9F7E00B87FB7 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919BD9832BFF9F7E00B87FB7 /* WebView.swift */; };
 		91BC85F82C2427EA000EC920 /* FavoriteLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BC85F72C2427EA000EC920 /* FavoriteLocation.swift */; };
 		91EABC742C2C3C6B00589544 /* RecentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EABC732C2C3C6B00589544 /* RecentLocation.swift */; };
 		C82030372C6C9D9200393F9C /* SwiftDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82030362C6C9D9200393F9C /* SwiftDataViewModel.swift */; };
+		C8B4A54D2C6CD631006C4922 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B4A54C2C6CD631006C4922 /* WebView.swift */; };
+		C8B4A54F2C6CF24F006C4922 /* WebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B4A54E2C6CF24C006C4922 /* WebViewModel.swift */; };
+		C8B4A5512C6CF28F006C4922 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B4A5502C6CF28F006C4922 /* LoadingView.swift */; };
+		C8B4A5532C6CF2B9006C4922 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B4A5522C6CF2B9006C4922 /* ActivityIndicatorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,10 +50,13 @@
 		9172A0EA2BF3714B008039A3 /* FindNearbyListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindNearbyListItem.swift; sourceTree = "<group>"; };
 		9172A0EC2BF38F97008039A3 /* RecentLocationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentLocationItem.swift; sourceTree = "<group>"; };
 		9176CCD02BF4DD7900ABACA8 /* WavingBars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavingBars.swift; sourceTree = "<group>"; };
-		919BD9832BFF9F7E00B87FB7 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		91BC85F72C2427EA000EC920 /* FavoriteLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteLocation.swift; sourceTree = "<group>"; };
 		91EABC732C2C3C6B00589544 /* RecentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentLocation.swift; sourceTree = "<group>"; };
 		C82030362C6C9D9200393F9C /* SwiftDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataViewModel.swift; sourceTree = "<group>"; };
+		C8B4A54C2C6CD631006C4922 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		C8B4A54E2C6CF24C006C4922 /* WebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModel.swift; sourceTree = "<group>"; };
+		C8B4A5502C6CF28F006C4922 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		C8B4A5522C6CF2B9006C4922 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +131,7 @@
 		915E4B792BF127DF00A68B75 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				C8B4A54E2C6CF24C006C4922 /* WebViewModel.swift */,
 				914A19722BF272980045900D /* MapViewModel.swift */,
 				C82030362C6C9D9200393F9C /* SwiftDataViewModel.swift */,
 			);
@@ -134,6 +141,7 @@
 		9172A0E12BF34B40008039A3 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				C8B4A54B2C6CD604006C4922 /* Web */,
 				916BD5ED2BF2A3FF0036F83B /* UserAnnotationComponent.swift */,
 				9172A0E22BF34B54008039A3 /* EquilateralTriangle.swift */,
 				9172A0E62BF356E0008039A3 /* CustomTextField.swift */,
@@ -141,10 +149,19 @@
 				9172A0EA2BF3714B008039A3 /* FindNearbyListItem.swift */,
 				9172A0EC2BF38F97008039A3 /* RecentLocationItem.swift */,
 				9176CCD02BF4DD7900ABACA8 /* WavingBars.swift */,
-				919BD9832BFF9F7E00B87FB7 /* WebView.swift */,
 				9146F3DE2C11B1D7001072CD /* DynamicIslandView.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		C8B4A54B2C6CD604006C4922 /* Web */ = {
+			isa = PBXGroup;
+			children = (
+				C8B4A54C2C6CD631006C4922 /* WebView.swift */,
+				C8B4A5502C6CF28F006C4922 /* LoadingView.swift */,
+				C8B4A5522C6CF2B9006C4922 /* ActivityIndicatorView.swift */,
+			);
+			path = Web;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,18 +237,21 @@
 				9172A0E72BF356E0008039A3 /* CustomTextField.swift in Sources */,
 				9134A66C2BFBCE8E00929317 /* LocationView.swift in Sources */,
 				91EABC742C2C3C6B00589544 /* RecentLocation.swift in Sources */,
-				919BD9842BFF9F7E00B87FB7 /* WebView.swift in Sources */,
+				C8B4A5512C6CF28F006C4922 /* LoadingView.swift in Sources */,
 				915E4B6C2BF11B7800A68B75 /* ContentView.swift in Sources */,
 				916BD5EE2BF2A3FF0036F83B /* UserAnnotationComponent.swift in Sources */,
+				C8B4A54D2C6CD631006C4922 /* WebView.swift in Sources */,
 				9172A0E32BF34B54008039A3 /* EquilateralTriangle.swift in Sources */,
 				9172A0EB2BF3714B008039A3 /* FindNearbyListItem.swift in Sources */,
 				916820BB2C120CE7003502E9 /* SpeechRecognizer.swift in Sources */,
+				C8B4A54F2C6CF24F006C4922 /* WebViewModel.swift in Sources */,
 				916BD5EE2BF2A3FF0036F83B /* UserAnnotationComponent.swift in Sources */,
 				9172A0ED2BF38F97008039A3 /* RecentLocationItem.swift in Sources */,
 				9176CCD12BF4DD7900ABACA8 /* WavingBars.swift in Sources */,
 				9172A0E52BF35420008039A3 /* DestinationsSheet.swift in Sources */,
 				91BC85F82C2427EA000EC920 /* FavoriteLocation.swift in Sources */,
 				C82030372C6C9D9200393F9C /* SwiftDataViewModel.swift in Sources */,
+				C8B4A5532C6CF2B9006C4922 /* ActivityIndicatorView.swift in Sources */,
 				9146F3DF2C11B1D7001072CD /* DynamicIslandView.swift in Sources */,
 				9172A0E32BF34B54008039A3 /* EquilateralTriangle.swift in Sources */,
 				9172A0E92BF36510008039A3 /* LikedMealItem.swift in Sources */,
