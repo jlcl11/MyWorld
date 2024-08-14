@@ -17,6 +17,7 @@ struct LocationView: View {
     @EnvironmentObject var mapViewModel: MapViewModel
     @Environment(SwiftDataViewModel.self) var swiftDataViewModel
     @State private var scaleEffect: CGFloat = 1.0
+    @StateObject var webViewModel = WebViewModel(url: "http://www.google.com")
 
     var body: some View {
         VStack {
@@ -74,7 +75,17 @@ struct LocationView: View {
                     .padding(.horizontal)
                     .padding(.bottom)
             } else {
-                ContentUnavailableView("No preview available", image: "eye.slash")
+                VStack {
+                    Image(systemName: "eye.slash")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 100, height: 100)
+                        .foregroundStyle(.gray)
+                    Text("No preview available")
+                        .font(.headline)
+                        .foregroundColor(.gray)
+                }
+                .padding()
             }
             
             HStack(spacing: 12) {
@@ -91,6 +102,12 @@ struct LocationView: View {
                 }
                 
                 Button(action: {
+                    if let mapSelection = mapSelection, let url = mapSelection.url {
+                        self.webViewModel.changeURL(to: url.absoluteString)
+                    } else {
+                        self.webViewModel.changeURL(to: "https://www.apple.com/es/")
+                    }
+
                     showWebView = true
                 }) {
                     Image(systemName: "globe")
@@ -100,10 +117,8 @@ struct LocationView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
                 .sheet(isPresented: $showWebView) {
-                    if let url = mapSelection?.url ?? URL(string: "https://www.apple.com/es/") {
-                        WebView(url: url)
-                    } else {
-                        Text("Invalid URL")
+                    LoadingView(isShowing: self.$webViewModel.isLoading) {
+                        WebView(viewModel: self.webViewModel)
                     }
                 }
                 
