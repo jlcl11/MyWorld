@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MapKit
+import SwiftData
 
 struct LocationView: View {
     @Binding var mapSelection: MKMapItem?
@@ -15,7 +16,9 @@ struct LocationView: View {
     @State private var showWebView = false
     @State private var isHeartFilled = false
     @EnvironmentObject var mapViewModel: MapViewModel
-    @Environment(SwiftDataViewModel.self) var swiftDataViewModel
+    @Environment(\.modelContext) private var modelContext: ModelContext
+    @Query private var favoriteLocations: [FavoriteLocation]
+    @Query private var recentLocations: [RecentLocation]
     @State private var scaleEffect: CGFloat = 1.0
 
     var body: some View {
@@ -74,7 +77,17 @@ struct LocationView: View {
                     .padding(.horizontal)
                     .padding(.bottom)
             } else {
-                ContentUnavailableView("No preview available", image: "eye.slash")
+                VStack {
+                    Image(systemName: "eye.slash")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 100, height: 100)
+                        .foregroundStyle(.gray)
+                    Text("No preview available")
+                        .font(.headline)
+                        .foregroundColor(.gray)
+                }
+                .padding()
             }
             
             HStack(spacing: 12) {
@@ -160,8 +173,8 @@ struct LocationView: View {
     }
     
     private func checkIfFavorite() {
-        if let mapSelection = mapSelection {
-            isHeartFilled = swiftDataViewModel.isLocationFavorite(mapSelection)
+        if let name = mapSelection?.placemark.name {
+            isHeartFilled = favoriteLocations.contains { $0.name == name }
         }
     }
     
@@ -171,13 +184,13 @@ struct LocationView: View {
                                            address: mapSelection.placemark.title ?? "",
                                            latitude: mapSelection.placemark.coordinate.latitude,
                                            longitude: mapSelection.placemark.coordinate.longitude)
-        swiftDataViewModel.insertFavoriteLocation(location: newFavorite)
+        modelContext.insert(newFavorite)
     }
 
     private func removeFavorite() {
         guard let mapSelection = mapSelection else { return }
-        if let favorite = swiftDataViewModel.favoriteLocations.first(where: { $0.name == mapSelection.placemark.name }) {
-            swiftDataViewModel.deleteFavoriteLocation(location: favorite)
+        if let favorite = favoriteLocations.first(where: { $0.name == mapSelection.placemark.name }) {
+            modelContext.delete(favorite)
         }
     }
     
@@ -187,6 +200,6 @@ struct LocationView: View {
                                        address: mapSelection.placemark.title ?? "",
                                        latitude: mapSelection.placemark.coordinate.latitude,
                                        longitude: mapSelection.placemark.coordinate.longitude)
-        swiftDataViewModel.insertRecentLocation(location: newRecent)
+        modelContext.insert(newRecent)
     }
 }
