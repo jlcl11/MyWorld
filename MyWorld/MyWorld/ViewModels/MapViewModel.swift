@@ -131,11 +131,9 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
             let response = try await MKLocalSearch(request: request).start()
             if let updatedMapItem = response.mapItems.first {
                 DispatchQueue.main.async {
-                    // Replace the mapItem with detailed information
                     mapSelection.wrappedValue = updatedMapItem
                     showLocationSheet.wrappedValue = true
                     
-                    // Update results with only this item
                     self.results = [updatedMapItem]
                 }
             }

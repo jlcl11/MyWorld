@@ -10,13 +10,15 @@ import Foundation
 class WebViewModel: ObservableObject {
     @Published var url: String
     @Published var isLoading: Bool = true
-    
-    init (url: String) {
+    @Published var isContentEmpty: Bool = false   
+
+    init(url: String) {
         self.url = url
     }
-    
+
     func changeURL(to newURL: String) {
         self.url = newURL
         self.isLoading = true
+        self.isContentEmpty = false
     }
 }
