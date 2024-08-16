@@ -118,7 +118,54 @@ struct LocationView: View {
                 }
                 .sheet(isPresented: $showWebView) {
                     LoadingView(isShowing: self.$webViewModel.isLoading) {
-                        WebView(viewModel: self.webViewModel)
+                        Group {
+                            if self.webViewModel.isContentEmpty {
+                                VStack {
+                                    Spacer()
+
+                                    Image(systemName: "exclamationmark.triangle")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 100, height: 100)
+                                        .foregroundColor(.indigo)
+
+                                    Text("404")
+                                        .font(.system(size: 60))
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.gray)
+
+                                    Text("Page Not Found")
+                                        .font(.title)
+                                        .fontWeight(.semibold)
+                                        .padding(.top, 8)
+
+                                    Text("Sorry, the page you are trying to open is not available or is empty.")
+                                        .font(.body)
+                                        .multilineTextAlignment(.center)
+                                        .foregroundColor(.gray)
+                                        .padding(.top, 4)
+                                        .padding(.horizontal, 24)
+
+                                    Button(action: {
+                                        showWebView = false
+                                    }) {
+                                        Text("Go Back")
+                                            .font(.headline)
+                                            .foregroundColor(.white)
+                                            .padding()
+                                            .frame(width: 200)
+                                            .background(Color.indigo)
+                                            .cornerRadius(10)
+                                    }
+                                    .padding(.top, 20)
+
+                                    Spacer()
+                                }
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)   
+                            } else {
+                                WebView(viewModel: self.webViewModel)
+                            }
+                        }
                     }
                 }
                 
