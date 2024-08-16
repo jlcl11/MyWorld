@@ -17,18 +17,24 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
     @Published var route: MKRoute?
     @Published var routeDestination: MKMapItem?
     @Published var routeDisplaying = false
+    @Published var lookAroundScene: MKLookAroundScene?
 
     var locationManager: CLLocationManager?
 
     func checkIfLocationServicesIsEnabled() {
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager = CLLocationManager()
-            locationManager?.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager?.delegate = self
-            locationManager?.requestWhenInUseAuthorization()
-            locationManager?.startUpdatingLocation()
-        } else {
-            print("Show an alert")
+        DispatchQueue.global().async {
+            if CLLocationManager.locationServicesEnabled() {
+                DispatchQueue.main.async {
+                    self.locationManager = CLLocationManager()
+                    self.locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+                    self.locationManager?.delegate = self
+                    self.locationManager?.requestWhenInUseAuthorization()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    print("Show an alert")
+                }
+            }
         }
     }
 
@@ -42,7 +48,9 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
             print("We need your location")
         case .authorizedAlways, .authorizedWhenInUse:
             if let location = locationManager.location {
-                region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+                DispatchQueue.main.async {
+                    self.region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+                }
             }
         @unknown default:
             break
@@ -55,7 +63,9 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
-        region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+        DispatchQueue.main.async {
+            self.region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+        }
     }
 
     func searchPlaces(searchText: String) async {
@@ -93,11 +103,13 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
     }
 
     func cancelRoute() {
-        route = nil
-        routeDestination = nil
-        routeDisplaying = false
+        DispatchQueue.main.async {
+            self.route = nil
+            self.routeDestination = nil
+            self.routeDisplaying = false
+        }
     }
-    
+
     func updateCameraAndFetchInfo(for mapItem: MKMapItem, mapSelection: Binding<MKMapItem?>, showLocationSheet: Binding<Bool>) async {
         // Update camera position
         let coordinate = mapItem.placemark.coordinate
@@ -119,16 +131,25 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
             let response = try await MKLocalSearch(request: request).start()
             if let updatedMapItem = response.mapItems.first {
                 DispatchQueue.main.async {
-                    // Replace the mapItem with detailed information
                     mapSelection.wrappedValue = updatedMapItem
                     showLocationSheet.wrappedValue = true
                     
-                    // Update results with only this item
                     self.results = [updatedMapItem]
                 }
             }
         } catch {
             print("Failed to fetch detailed information: \(error)")
+        }
+    }
+
+    func fetchLookAroundScene(for mapItem: MKMapItem) {
+        lookAroundScene = nil
+        Task {
+            let request = MKLookAroundSceneRequest(mapItem: mapItem)
+            let scene = try? await request.scene
+            DispatchQueue.main.async {
+                self.lookAroundScene = scene
+            }
         }
     }
 }

@@ -7,20 +7,17 @@
 
 import SwiftUI
 import MapKit
-import SwiftData
 
 struct LocationView: View {
     @Binding var mapSelection: MKMapItem?
     @Binding var show: Bool
     @Binding var showModalSheet: Bool
-    @State private var lookAroundScene: MKLookAroundScene?
     @State private var showWebView = false
     @State private var isHeartFilled = false
     @EnvironmentObject var mapViewModel: MapViewModel
-    @Environment(\.modelContext) private var modelContext: ModelContext
-    @Query private var favoriteLocations: [FavoriteLocation]
-    @Query private var recentLocations: [RecentLocation]
+    @Environment(SwiftDataViewModel.self) var swiftDataViewModel
     @State private var scaleEffect: CGFloat = 1.0
+    @StateObject var webViewModel = WebViewModel(url: "http://www.google.com")
 
     var body: some View {
         VStack {
@@ -71,14 +68,24 @@ struct LocationView: View {
             .padding(.top)
             .padding(.horizontal)
             
-            if let scene = lookAroundScene {
-                LookAroundPreview(initialScene: scene)
+            if let lookAroundScene = mapViewModel.lookAroundScene {
+                LookAroundPreview(initialScene: lookAroundScene)
                     .frame(height: 200)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     .padding(.horizontal)
                     .padding(.bottom)
             } else {
-                ContentUnavailableView("No preview available", image: "eye.slash")
+                VStack {
+                    Image(systemName: "eye.slash")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 100, height: 100)
+                        .foregroundStyle(.gray)
+                    Text("No preview available")
+                        .font(.headline)
+                        .foregroundColor(.gray)
+                }
+                .padding()
             }
             
             HStack(spacing: 12) {
@@ -95,6 +102,12 @@ struct LocationView: View {
                 }
                 
                 Button(action: {
+                    if let mapSelection = mapSelection, let url = mapSelection.url {
+                        self.webViewModel.changeURL(to: url.absoluteString)
+                    } else {
+                        self.webViewModel.changeURL(to: "https://www.apple.com/es/")
+                    }
+
                     showWebView = true
                 }) {
                     Image(systemName: "globe")
@@ -104,10 +117,55 @@ struct LocationView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
                 .sheet(isPresented: $showWebView) {
-                    if let url = mapSelection?.url ?? URL(string: "https://www.apple.com/es/") {
-                        WebView(url: url)
-                    } else {
-                        Text("Invalid URL")
+                    LoadingView(isShowing: self.$webViewModel.isLoading) {
+                        Group {
+                            if self.webViewModel.isContentEmpty {
+                                VStack {
+                                    Spacer()
+
+                                    Image(systemName: "exclamationmark.triangle")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 100, height: 100)
+                                        .foregroundColor(.indigo)
+
+                                    Text("404")
+                                        .font(.system(size: 60))
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.gray)
+
+                                    Text("Page Not Found")
+                                        .font(.title)
+                                        .fontWeight(.semibold)
+                                        .padding(.top, 8)
+
+                                    Text("Sorry, the page you are trying to open is not available or is empty.")
+                                        .font(.body)
+                                        .multilineTextAlignment(.center)
+                                        .foregroundColor(.gray)
+                                        .padding(.top, 4)
+                                        .padding(.horizontal, 24)
+
+                                    Button(action: {
+                                        showWebView = false
+                                    }) {
+                                        Text("Go Back")
+                                            .font(.headline)
+                                            .foregroundColor(.white)
+                                            .padding()
+                                            .frame(width: 200)
+                                            .background(Color.indigo)
+                                            .cornerRadius(10)
+                                    }
+                                    .padding(.top, 20)
+
+                                    Spacer()
+                                }
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)   
+                            } else {
+                                WebView(viewModel: self.webViewModel)
+                            }
+                        }
                     }
                 }
                 
@@ -148,30 +206,24 @@ struct LocationView: View {
             }
         }
         .onAppear {
-            fetchLookAroundScene()
+            if let mapSelection = mapSelection {
+                mapViewModel.fetchLookAroundScene(for: mapSelection)
+            }
             checkIfFavorite()
             addRecent()
         }
-        .onChange(of: mapSelection) { _ in
-            fetchLookAroundScene()
+        .onChange(of: mapSelection) { newValue in
+            if let newValue = newValue {
+                mapViewModel.fetchLookAroundScene(for: newValue)
+            }
             checkIfFavorite()
             addRecent()
         }
     }
     
-    func fetchLookAroundScene() {
-        if let mapSelection {
-            lookAroundScene = nil
-            Task {
-                let request = MKLookAroundSceneRequest(mapItem: mapSelection)
-                lookAroundScene = try? await request.scene
-            }
-        }
-    }
-
     private func checkIfFavorite() {
-        if let name = mapSelection?.placemark.name {
-            isHeartFilled = favoriteLocations.contains { $0.name == name }
+        if let mapSelection = mapSelection {
+            isHeartFilled = swiftDataViewModel.isLocationFavorite(mapSelection)
         }
     }
     
@@ -181,13 +233,13 @@ struct LocationView: View {
                                            address: mapSelection.placemark.title ?? "",
                                            latitude: mapSelection.placemark.coordinate.latitude,
                                            longitude: mapSelection.placemark.coordinate.longitude)
-        modelContext.insert(newFavorite)
+        swiftDataViewModel.insertFavoriteLocation(location: newFavorite)
     }
 
     private func removeFavorite() {
         guard let mapSelection = mapSelection else { return }
-        if let favorite = favoriteLocations.first(where: { $0.name == mapSelection.placemark.name }) {
-            modelContext.delete(favorite)
+        if let favorite = swiftDataViewModel.favoriteLocations.first(where: { $0.name == mapSelection.placemark.name }) {
+            swiftDataViewModel.deleteFavoriteLocation(location: favorite)
         }
     }
     
@@ -197,6 +249,6 @@ struct LocationView: View {
                                        address: mapSelection.placemark.title ?? "",
                                        latitude: mapSelection.placemark.coordinate.latitude,
                                        longitude: mapSelection.placemark.coordinate.longitude)
-        modelContext.insert(newRecent)
+        swiftDataViewModel.insertRecentLocation(location: newRecent)
     }
 }
