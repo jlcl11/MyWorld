@@ -26,11 +26,24 @@
 		91BC85F82C2427EA000EC920 /* FavoriteLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BC85F72C2427EA000EC920 /* FavoriteLocation.swift */; };
 		91EABC742C2C3C6B00589544 /* RecentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EABC732C2C3C6B00589544 /* RecentLocation.swift */; };
 		C82030372C6C9D9200393F9C /* SwiftDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82030362C6C9D9200393F9C /* SwiftDataViewModel.swift */; };
+		C8B1D4D22C6F44560051A589 /* WebViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B1D4D12C6F44560051A589 /* WebViewModelTests.swift */; };
+		C8B1D4D42C6F44720051A589 /* MapViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B1D4D32C6F44720051A589 /* MapViewModelTests.swift */; };
+		C8B1D4D62C6F44830051A589 /* SwiftDataViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B1D4D52C6F44830051A589 /* SwiftDataViewModelTests.swift */; };
 		C8B4A54D2C6CD631006C4922 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B4A54C2C6CD631006C4922 /* WebView.swift */; };
 		C8B4A54F2C6CF24F006C4922 /* WebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B4A54E2C6CF24C006C4922 /* WebViewModel.swift */; };
 		C8B4A5512C6CF28F006C4922 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B4A5502C6CF28F006C4922 /* LoadingView.swift */; };
 		C8B4A5532C6CF2B9006C4922 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B4A5522C6CF2B9006C4922 /* ActivityIndicatorView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C8B1D4CC2C6F43940051A589 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 915E4B5E2BF11B7800A68B75 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 915E4B652BF11B7800A68B75;
+			remoteInfo = MyWorld;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		9134A66B2BFBCE8E00929317 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
@@ -53,6 +66,10 @@
 		91BC85F72C2427EA000EC920 /* FavoriteLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteLocation.swift; sourceTree = "<group>"; };
 		91EABC732C2C3C6B00589544 /* RecentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentLocation.swift; sourceTree = "<group>"; };
 		C82030362C6C9D9200393F9C /* SwiftDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataViewModel.swift; sourceTree = "<group>"; };
+		C8B1D4C82C6F43940051A589 /* MyWorldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyWorldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8B1D4D12C6F44560051A589 /* WebViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModelTests.swift; sourceTree = "<group>"; };
+		C8B1D4D32C6F44720051A589 /* MapViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelTests.swift; sourceTree = "<group>"; };
+		C8B1D4D52C6F44830051A589 /* SwiftDataViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataViewModelTests.swift; sourceTree = "<group>"; };
 		C8B4A54C2C6CD631006C4922 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		C8B4A54E2C6CF24C006C4922 /* WebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModel.swift; sourceTree = "<group>"; };
 		C8B4A5502C6CF28F006C4922 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -61,6 +78,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		915E4B632BF11B7800A68B75 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C8B1D4C52C6F43940051A589 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -84,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				915E4B682BF11B7800A68B75 /* MyWorld */,
+				C8B1D4C92C6F43940051A589 /* MyWorldTests */,
 				915E4B672BF11B7800A68B75 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -92,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				915E4B662BF11B7800A68B75 /* MyWorld.app */,
+				C8B1D4C82C6F43940051A589 /* MyWorldTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -154,6 +180,16 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		C8B1D4C92C6F43940051A589 /* MyWorldTests */ = {
+			isa = PBXGroup;
+			children = (
+				C8B1D4D12C6F44560051A589 /* WebViewModelTests.swift */,
+				C8B1D4D32C6F44720051A589 /* MapViewModelTests.swift */,
+				C8B1D4D52C6F44830051A589 /* SwiftDataViewModelTests.swift */,
+			);
+			path = MyWorldTests;
+			sourceTree = "<group>";
+		};
 		C8B4A54B2C6CD604006C4922 /* Web */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,6 +220,24 @@
 			productReference = 915E4B662BF11B7800A68B75 /* MyWorld.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C8B1D4C72C6F43940051A589 /* MyWorldTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C8B1D4D02C6F43940051A589 /* Build configuration list for PBXNativeTarget "MyWorldTests" */;
+			buildPhases = (
+				C8B1D4C42C6F43940051A589 /* Sources */,
+				C8B1D4C52C6F43940051A589 /* Frameworks */,
+				C8B1D4C62C6F43940051A589 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C8B1D4CD2C6F43940051A589 /* PBXTargetDependency */,
+			);
+			name = MyWorldTests;
+			productName = MyWorldTests;
+			productReference = C8B1D4C82C6F43940051A589 /* MyWorldTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -191,11 +245,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1530;
+				LastSwiftUpdateCheck = 1540;
 				LastUpgradeCheck = 1530;
 				TargetAttributes = {
 					915E4B652BF11B7800A68B75 = {
 						CreatedOnToolsVersion = 15.3;
+					};
+					C8B1D4C72C6F43940051A589 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 915E4B652BF11B7800A68B75;
 					};
 				};
 			};
@@ -213,6 +271,7 @@
 			projectRoot = "";
 			targets = (
 				915E4B652BF11B7800A68B75 /* MyWorld */,
+				C8B1D4C72C6F43940051A589 /* MyWorldTests */,
 			);
 		};
 /* End PBXProject section */
@@ -224,6 +283,13 @@
 			files = (
 				915E4B712BF11B7900A68B75 /* Preview Assets.xcassets in Resources */,
 				915E4B6E2BF11B7900A68B75 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C8B1D4C62C6F43940051A589 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,7 +326,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C8B1D4C42C6F43940051A589 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C8B1D4D62C6F44830051A589 /* SwiftDataViewModelTests.swift in Sources */,
+				C8B1D4D22C6F44560051A589 /* WebViewModelTests.swift in Sources */,
+				C8B1D4D42C6F44720051A589 /* MapViewModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C8B1D4CD2C6F43940051A589 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 915E4B652BF11B7800A68B75 /* MyWorld */;
+			targetProxy = C8B1D4CC2C6F43940051A589 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		915E4B722BF11B7900A68B75 /* Debug */ = {
@@ -446,6 +530,44 @@
 			};
 			name = Release;
 		};
+		C8B1D4CE2C6F43940051A589 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 62QLYFGB37;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Coffee-King.MyWorldTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyWorld.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MyWorld";
+			};
+			name = Debug;
+		};
+		C8B1D4CF2C6F43940051A589 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 62QLYFGB37;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Coffee-King.MyWorldTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyWorld.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MyWorld";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -463,6 +585,15 @@
 			buildConfigurations = (
 				915E4B752BF11B7900A68B75 /* Debug */,
 				915E4B762BF11B7900A68B75 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C8B1D4D02C6F43940051A589 /* Build configuration list for PBXNativeTarget "MyWorldTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C8B1D4CE2C6F43940051A589 /* Debug */,
+				C8B1D4CF2C6F43940051A589 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
