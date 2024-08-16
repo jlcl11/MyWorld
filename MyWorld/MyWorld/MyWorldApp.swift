@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
-struct MyWorldApp: App {
+struct YourAppNameApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(SwiftDataViewModel())
         }
     }
 }
