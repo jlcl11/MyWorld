@@ -1,108 +1,132 @@
-![Captura de pantalla 2024-07-13 a las 12 30 06](https://github.com/user-attachments/assets/3f56c45f-8d1c-4c97-bc22-e25cd0ff5cf4)
+<p align="center">
+  <img width="1500" alt="MyWorld" src="https://github.com/user-attachments/assets/3f56c45f-8d1c-4c97-bc22-e25cd0ff5cf4" />
+</p>
 
+<h1 align="center">
+  <br>
+  MyWorld 🌐
+  <br>
+</h1>
 
-# MyWorld 🌐
+<h3 align="center">Discover, save and navigate to places — with Look Around and Dynamic Island.</h3>
 
-Welcome to **MyWorld**! This app helps users explore nearby locations, find destinations, and manage favorites and recent visits.
+<p align="center">
+  <strong>MapKit</strong> &nbsp;·&nbsp; <strong>Look Around</strong> &nbsp;·&nbsp; <strong>SwiftData</strong> &nbsp;·&nbsp; <strong>Dynamic Island</strong>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/iOS_16%2B-000000?style=for-the-badge&logo=apple&logoColor=white" alt="iOS 16+">
+  <img src="https://img.shields.io/badge/Swift-F05138?style=for-the-badge&logo=swift&logoColor=white" alt="Swift">
+  <img src="https://img.shields.io/badge/SwiftUI-007AFF?style=for-the-badge&logo=swift&logoColor=white" alt="SwiftUI">
+  <img src="https://img.shields.io/badge/MapKit-30D158?style=for-the-badge&logo=apple&logoColor=white" alt="MapKit">
+  <img src="https://img.shields.io/badge/SwiftData-FF9500?style=for-the-badge&logo=swift&logoColor=white" alt="SwiftData">
+</p>
+
+---
+
+## What is MyWorld
+
+MyWorld is a location-discovery app that puts MapKit's modern surfaces — Look Around previews, integrated walking routes, Dynamic Island Live Activities — into one focused product. Search nearby places, save favourites, navigate, and see your route persist in the Dynamic Island while you walk.
+
+Built with SwiftUI + Combine for reactive state, SwiftData for local persistence and WebKit for in-app site previews.
+
+---
 
 ## Features
 
-- **Location Search**: Users can search for nearby locations such as gas stations, restaurants, banks, and more.
-- **Favorites**: Users can mark locations as favorites, and the app will store them for easy access.
-- **Recents**: Recently visited locations are saved for quick access later.
-- **Map Integration**: The app integrates with Apple Maps to show routes, previews, and location details.
-- **Web View**: Open the website related to a location, if available.
-- **Dynamic Island Support**: For supported devices, dynamic island notifications are provided during navigation.
+| | |
+|---|---|
+| **Search** | Find nearby places by category (restaurants, gas stations, banks, ATMs, hotels, etc.) using `MKLocalSearch`. |
+| **Look Around** | Inline `LookAroundPreview` for any location that supports it, with graceful fallback when unavailable. |
+| **Routes** | Walking routes from current location to selected destination via `MKDirections`, drawn on the map. |
+| **Favourites & Recents** | One-tap save to favourites. Recent visits are tracked automatically. Both persisted with SwiftData. |
+| **Web view** | Open the location's website in an embedded WebKit view with loading + error states (including a 404 placeholder). |
+| **Dynamic Island** | On supported devices, Live Activities surface ongoing route updates in the Dynamic Island. |
 
-## Technologies
+---
 
-- **SwiftUI**: Used to build the app's UI components.
-- **MapKit**: Apple’s mapping framework for displaying maps, annotations, and routes.
-- **SwiftData**: Manages local data, such as favorite and recent locations.
-- **Combine**: Reactive framework used to handle the app's state changes.
-- **WebKit**: Enables web content display within the app.
+## Screens
 
-## Screens and Components
+| Screen | Role |
+|---|---|
+| **ContentView** | Main map surface, sheets and current location |
+| **DestinationsSheet** | Search bar, categories carousel, favourites and recents |
+| **LocationView** | Selected place detail: Open in Maps, Website, Call, Favourite, Navigate |
 
-### 1. `LocationView`
+---
 
-This screen displays the selected location’s details, offering buttons to:
+## Architecture
 
-- Open in Apple Maps
-- View location’s website
-- Call the location’s phone number
-- Add/Remove from favorites
-- Start navigation
+```
+MyWorld/
+  Views/
+    ContentView.swift           Main map + overlays
+    DestinationsSheet.swift     Search + categories + recents
+    LocationView.swift          Place detail + Look Around + actions
+  ViewModels/
+    MapViewModel.swift          MKLocalSearch + MKDirections + Look Around
+    WebViewModel.swift          WKWebView loading and error states
+    SwiftDataViewModel.swift    Favourites + Recents persistence
+  Models/
+    SavedLocation.swift         SwiftData entities (favourites, recents)
+  Activities/
+    NavigationActivity.swift    Live Activity for Dynamic Island
+```
 
-Additionally, it displays the **Look Around** preview when available or a placeholder if not.
+---
 
-### 2. `DestinationsSheet`
+## How Search Works
 
-This sheet allows users to:
+```
+   User types query
+         │
+         ▼
+   ┌──────────────┐         ┌──────────────────┐
+   │ MKLocalSearch│────────►│ Map annotations  │
+   └──────────────┘         └──────────────────┘
+         │                          │
+         ▼                          ▼
+   ┌──────────────┐         ┌──────────────────┐
+   │ Look Around  │         │ Walking route    │
+   │ preview      │         │ via MKDirections │
+   └──────────────┘         └──────────────────┘
+                                    │
+                                    ▼
+                            ┌──────────────────┐
+                            │ Dynamic Island   │
+                            │ Live Activity    │
+                            └──────────────────┘
+```
 
-- Search for locations
-- Browse favorite locations
-- Find nearby categories (e.g., Restaurants, Gas Stations)
-- View recent locations
-- Load more nearby categories
+---
 
-### 3. `ContentView`
+## Quick Start
 
-Main view of the app that integrates the map and allows users to:
+**Requirements:** Xcode 14+ · iOS 16+ (Dynamic Island features require iPhone 14 Pro or newer)
 
-- View their current location
-- Search for places and see results on the map
-- Select a place for detailed information
+```bash
+git clone https://github.com/jlcl11/MyWorld.git
+cd MyWorld
+open MyWorld.xcodeproj
+```
 
-The app uses a `ZStack` to combine map display, modals, and additional features.
+Add an `NSLocationWhenInUseUsageDescription` entry to Info.plist (already included), build and run.
 
-### 4. `MapViewModel`
+---
 
-Handles the interaction with MapKit:
+## Tech Stack
 
-- **Search**: Allows users to search for locations via `MKLocalSearch`.
-- **Routes**: Fetches and displays walking routes between the user's current location and the selected destination.
-- **Location Management**: Manages user location services, including requesting location permissions.
-- **Look Around**: Fetches Apple Maps' **Look Around** scenes for locations, if available.
+| Technology | Role |
+|---|---|
+| **SwiftUI** | Declarative UI layer |
+| **MapKit** | Map, annotations, walking routes, Look Around |
+| **SwiftData** | Local persistence of favourites and recents |
+| **Combine** | Reactive plumbing for view state |
+| **WebKit** | In-app website previews |
+| **ActivityKit** | Live Activities for Dynamic Island navigation updates |
 
-### 5. `WebViewModel`
+---
 
-Manages the web view component, allowing users to load location websites directly in the app. Handles loading states and errors (e.g., displaying a "404 Page Not Found" message).
-
-### 6. `SwiftDataViewModel`
-
-This view model handles the persistence of favorite and recent locations using **SwiftData**.
-
-- **Favorites**: Users can add and remove locations from their favorites list.
-- **Recents**: The app automatically saves recently viewed locations.
-- Data is fetched and stored using `ModelContainer` and `FetchDescriptor` from SwiftData.
-
-## How to Use
-
-1. **Search for a location**: Enter a location in the search bar on the `DestinationsSheet` and tap on a result to view its details.
-2. **Mark a favorite**: While viewing a location, tap the heart icon to save it as a favorite.
-3. **View favorites and recents**: Use the horizontal scrollable list in the `DestinationsSheet` to quickly access favorite or recent locations.
-4. **Navigate to a destination**: Once a location is selected, start navigation by tapping the arrow icon.
-5. **Open a website**: Tap the globe icon to view the location’s website, if available.
-
-## Dynamic Island Integration
-
-For devices that support **Dynamic Island**, the app will send a notification when navigation starts, providing an ongoing route update in the dynamic island area.
-
-## Installation
-
-1. Clone the repository.
-    ```bash
-    git clone https://github.com/your-repo/MyWorld.git
-    ```
-2. Open the project in Xcode.
-3. Build and run the app on your device or simulator.
-
-## Requirements
-
-- **iOS 16+**
-- **Xcode 14+**
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+<p align="center">
+  Built by <a href="https://github.com/jlcl11">Jose Luis Corral Lopez</a> · Portfolio sample of MapKit's modern surfaces
+</p>
