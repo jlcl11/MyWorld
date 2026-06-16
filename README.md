@@ -8,10 +8,10 @@
   <br>
 </h1>
 
-<h3 align="center">Discover, save and navigate to places — with Look Around and Dynamic Island.</h3>
+<h3 align="center">Discover, save and navigate to places — with Look Around and a custom Dynamic Island view.</h3>
 
 <p align="center">
-  <strong>MapKit</strong> &nbsp;·&nbsp; <strong>Look Around</strong> &nbsp;·&nbsp; <strong>SwiftData</strong> &nbsp;·&nbsp; <strong>Dynamic Island</strong>
+  <strong>MapKit</strong> &nbsp;·&nbsp; <strong>Look Around</strong> &nbsp;·&nbsp; <strong>SwiftData</strong> &nbsp;·&nbsp; <strong>Combine</strong>
 </p>
 
 <p align="center">
@@ -41,7 +41,7 @@ Built with SwiftUI + Combine for reactive state, SwiftData for local persistence
 | **Routes** | Walking routes from current location to selected destination via `MKDirections`, drawn on the map. |
 | **Favourites & Recents** | One-tap save to favourites. Recent visits are tracked automatically. Both persisted with SwiftData. |
 | **Web view** | Open the location's website in an embedded WebKit view with loading + error states (including a 404 placeholder). |
-| **Dynamic Island** | On supported devices, Live Activities surface ongoing route updates in the Dynamic Island. |
+| **Dynamic Island view** | A custom `DynamicIslandView` SwiftUI component surfaces the active route in a pill-shaped overlay when the device has a Dynamic Island. |
 
 ---
 
@@ -59,18 +59,19 @@ Built with SwiftUI + Combine for reactive state, SwiftData for local persistence
 
 ```
 MyWorld/
+  ContentView.swift             Map + overlays + Dynamic Island view
+  MyWorldApp.swift              App entry
   Views/
-    ContentView.swift           Main map + overlays
     DestinationsSheet.swift     Search + categories + recents
     LocationView.swift          Place detail + Look Around + actions
+    Components/                 Reusable views (incl. DynamicIslandView, Web/)
   ViewModels/
     MapViewModel.swift          MKLocalSearch + MKDirections + Look Around
     WebViewModel.swift          WKWebView loading and error states
     SwiftDataViewModel.swift    Favourites + Recents persistence
   Models/
-    SavedLocation.swift         SwiftData entities (favourites, recents)
-  Activities/
-    NavigationActivity.swift    Live Activity for Dynamic Island
+    LikedLocation.swift         SwiftData entity (favourites)
+    RecentSearch.swift          SwiftData entity (recents)
 ```
 
 ---
@@ -93,8 +94,8 @@ MyWorld/
                                     │
                                     ▼
                             ┌──────────────────┐
-                            │ Dynamic Island   │
-                            │ Live Activity    │
+                            │ DynamicIslandView│
+                            │ overlay (in-app) │
                             └──────────────────┘
 ```
 
@@ -121,9 +122,8 @@ Add an `NSLocationWhenInUseUsageDescription` entry to Info.plist (already includ
 | **SwiftUI** | Declarative UI layer |
 | **MapKit** | Map, annotations, walking routes, Look Around |
 | **SwiftData** | Local persistence of favourites and recents |
-| **Combine** | Reactive plumbing for view state |
-| **WebKit** | In-app website previews |
-| **ActivityKit** | Live Activities for Dynamic Island navigation updates |
+| **Combine** | `@Published` view-model state for map / web / persistence |
+| **WebKit** | `WKWebView` in-app website previews with loading + error states |
 
 ---
 
