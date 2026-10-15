@@ -8,14 +8,14 @@
   <br>
 </h1>
 
-<h3 align="center">Discover, save and navigate to places — with Look Around and a custom Dynamic Island view.</h3>
+<h3 align="center">Discover, save and navigate to places, with Look Around previews and walking routes.</h3>
 
 <p align="center">
   <strong>MapKit</strong> &nbsp;·&nbsp; <strong>Look Around</strong> &nbsp;·&nbsp; <strong>SwiftData</strong> &nbsp;·&nbsp; <strong>Combine</strong>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/iOS_16%2B-000000?style=for-the-badge&logo=apple&logoColor=white" alt="iOS 16+">
+  <img src="https://img.shields.io/badge/iOS_17.4%2B-000000?style=for-the-badge&logo=apple&logoColor=white" alt="iOS 17.4+">
   <img src="https://img.shields.io/badge/Swift-F05138?style=for-the-badge&logo=swift&logoColor=white" alt="Swift">
   <img src="https://img.shields.io/badge/SwiftUI-007AFF?style=for-the-badge&logo=swift&logoColor=white" alt="SwiftUI">
   <img src="https://img.shields.io/badge/MapKit-30D158?style=for-the-badge&logo=apple&logoColor=white" alt="MapKit">
@@ -26,7 +26,7 @@
 
 ## What is MyWorld
 
-MyWorld is a location-discovery app that puts MapKit's modern surfaces — Look Around previews, integrated walking routes, Dynamic Island Live Activities — into one focused product. Search nearby places, save favourites, navigate, and see your route persist in the Dynamic Island while you walk.
+MyWorld is a location-discovery app that puts MapKit's modern surfaces — Look Around previews and integrated walking routes — into one focused product. Search nearby places, save favourites and navigate, with the active route shown in a Dynamic Island–style banner inside the app.
 
 Built with SwiftUI + Combine for reactive state, SwiftData for local persistence and WebKit for in-app site previews.
 
@@ -41,7 +41,7 @@ Built with SwiftUI + Combine for reactive state, SwiftData for local persistence
 | **Routes** | Walking routes from current location to selected destination via `MKDirections`, drawn on the map. |
 | **Favourites & Recents** | One-tap save to favourites. Recent visits are tracked automatically. Both persisted with SwiftData. |
 | **Web view** | Open the location's website in an embedded WebKit view with loading + error states (including a 404 placeholder). |
-| **Dynamic Island view** | A custom `DynamicIslandView` SwiftUI component surfaces the active route in a pill-shaped overlay when the device has a Dynamic Island. |
+| **Route banner** | A custom SwiftUI `DynamicIslandView`, drawn inside the app, shows the active route in a pill-shaped banner at the top of the screen. It is not a Live Activity, so it disappears when you leave the app. |
 
 ---
 
@@ -70,8 +70,8 @@ MyWorld/
     WebViewModel.swift          WKWebView loading and error states
     SwiftDataViewModel.swift    Favourites + Recents persistence
   Models/
-    LikedLocation.swift         SwiftData entity (favourites)
-    RecentSearch.swift          SwiftData entity (recents)
+    FavoriteLocation.swift      SwiftData entity (favourites)
+    RecentLocation.swift        SwiftData entity (recents)
 ```
 
 ---
@@ -103,7 +103,7 @@ MyWorld/
 
 ## Quick Start
 
-**Requirements:** Xcode 14+ · iOS 16+ (Dynamic Island features require iPhone 14 Pro or newer)
+**Requirements:** Xcode 15.3+ · iOS 17.4+
 
 ```bash
 git clone https://github.com/jlcl11/MyWorld.git
@@ -128,5 +128,5 @@ Add an `NSLocationWhenInUseUsageDescription` entry to Info.plist (already includ
 ---
 
 <p align="center">
-  Built by <a href="https://github.com/jlcl11">Jose Luis Corral Lopez</a> · Portfolio sample of MapKit's modern surfaces
+  Built by <a href="https://github.com/jlcl11">Jose Luis Corral Lopez</a> · Portfolio sample of MapKit's modern surfaces (2024)
 </p>
